@@ -1,10 +1,10 @@
-const controller = require('../controllers/userController');
+const UserController = require('../controllers/userController');
 
 
 module.exports = (app) => {
     var router = require("express").Router();
-    router.get("/list", controller.findAll);
-    router.get("/user/:id", controller.findUserById)
-    router.post("/create", controller.create)
+    router.get("/list", UserController.findAll);
+    router.get("/user/:id", UserController.findUserById)
+    router.post("/create", UserController.create)
     app.use("/", router);
 };

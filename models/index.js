@@ -32,8 +32,8 @@ Object.keys(db).forEach(modelName => {
 });
 // QUITAR COMENTARIOS PARA REGENERAR ESQUEMAS
 
-sequelize.sync({ force: true });
-console.log("All models were synchronized successfully.");
+//sequelize.sync({ force: true });
+//console.log("All models were synchronized successfully.");
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
