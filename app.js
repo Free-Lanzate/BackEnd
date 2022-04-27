@@ -1,11 +1,19 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express       = require('express');
+const logger        = require('morgan');
+const bodyParser    = require('body-parser');
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+const http = require('http');
+const app = express();
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+require("./routes")(app);
+app.get('/', (req, res) => res.status(200).send({
+     message: 'Bienvenido a Freelanzate',
+}));
+const port = parseInt(process.env.PORT, 10) || 8000;
+app.set('port', port);
+const server = http.createServer(app);
+server.listen(port);
+console.log("Corriendo en localhost:8000")
+module.exports = app;
