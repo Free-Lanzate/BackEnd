@@ -1,10 +1,14 @@
 'use strict';
-const User = require('./user').User
+
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Freelancer extends Model {
     static associate(models) {
-      console.log()
+      Freelancer.hasMany(models.Post, {
+        foreignKey: {
+          allowNull: false
+        }
+      });
     }
   }
   Freelancer.init({

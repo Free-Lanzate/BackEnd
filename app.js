@@ -4,10 +4,11 @@ const bodyParser    = require('body-parser');
 
 const http = require('http');
 const app = express();
+require("./routes")(app);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-require("./routes")(app);
+
 app.get('/', (req, res) => res.status(200).send({
      message: 'Bienvenido a Freelanzate',
 }));

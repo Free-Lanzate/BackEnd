@@ -4,7 +4,11 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
     static associate(models) {
-      console.log()
+        Post.hasOne(models.Attachment,{
+            foreignKey: {
+              allowNull: false
+            }
+          });
     }
   }
   Post.init({
