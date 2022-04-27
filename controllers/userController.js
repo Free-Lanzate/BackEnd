@@ -4,10 +4,10 @@ const Op = db.Sequelize.Op;
 
 
 // Ejemplo de funcion de controlador
-// Corre en http://localhost:8000/list
+
 exports.findAll = (req, res) =>{
-    const firstName = req.query.firstName;
-    var condition = firstName ? { firstName: { [Op.like]: `%${firstName}%` } } : null;
+    const username = req.query.firstName;
+    var condition = username ? { username: { [Op.like]: `%${username}%` } } : null;
     User.findAll({ where: condition })
       .then(data => {
         res.send(data);
@@ -21,7 +21,7 @@ exports.findAll = (req, res) =>{
   };
 
   exports.create = (req, res) => {
-    if (!req.body.firstName) {
+    if (!req.body.username) {
       res.status(400).send({
         message: "Content can not be empty!"
       });
@@ -29,11 +29,14 @@ exports.findAll = (req, res) =>{
     }
     // Create an User
     const user = {
+      username: req.body.username,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
+      password: req.body.password,
+      email: req.body.email
     };
     // Save User in the database
-    User.create(tutorial)
+    User.create(user)
       .then(data => {
         res.send(data);
       })
@@ -44,3 +47,23 @@ exports.findAll = (req, res) =>{
         });
       });
   };
+
+exports.findUserById = (req, res) => {
+      const id = req.params.id;
+      User.findByPk(id)
+      .then(data => {
+        if (data){ 
+            res.send(data); 
+        } else {
+          res.status(404).send({
+              message: `Cannot find User with id=${id}.`
+          });
+        }
+      })
+      .catch(err => {
+          res.status(500).send({
+              message: "Error finding User with id="+id
+          })
+      })
+  }
+
