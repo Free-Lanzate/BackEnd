@@ -36,47 +36,47 @@ exports.create = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
     Post.update(req.body, {
-      where: { id: id }
+        where: { id: id }
     })
-      .then(num => {
-        if (num == 1) {
-          res.send({
-            message: "Post was updated successfully."
-          });
-        } else {
-          res.send({
-            message: `Cannot update Post with id=${id}. Maybe Post was not found or req.body is empty!`
-          });
-        }
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: "Error updating Post with id=" + id
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Post was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update Post with id=${id}. Maybe Post was not found or req.body is empty!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating Post with id=" + id
+            });
         });
-      });
-  };
+};
 
-  exports.delete = (req, res) => {
+exports.delete = (req, res) => {
     const id = req.params.id;
     Post.destroy({
-      where: { id: id }
+        where: { id: id }
     })
-      .then(num => {
-        if (num == 1) {
-          res.send({
-            message: "Post was deleted successfully!"
-          });
-        } else {
-          res.send({
-            message: `Cannot delete Post with id=${id}. Maybe Post was not found!`
-          });
-        }
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: "Could not delete Post with id=" + id
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Post was deleted successfully!"
+                });
+            } else {
+                res.send({
+                    message: `Cannot delete Post with id=${id}. Maybe Post was not found!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Could not delete Post with id=" + id
+            });
         });
-      });
-  };
+};
 
 
