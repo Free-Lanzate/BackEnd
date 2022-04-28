@@ -3,10 +3,10 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('Posts', [{
-      jobTitle: "Titulo post de ejemplo",
+      postTitle: "Titulo post de ejemplo",
       FreelancerId: 1,
-      jobDescription: "Description de post",
-      jobPrice: 10000,
+      postDescription: "Description de post",
+      postPrice: 10000,
       PostCategoryId: 1,
       thumbnailUrl: "/public/someimage",
       adPriority: 10,

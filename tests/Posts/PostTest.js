@@ -11,10 +11,10 @@ describe('Insert a Post: ', () => {
         chai.request(url)
             .post('/post/create')
             .send({
-                jobTitle: "Titulo sin editar",
+                postTitle: "Titulo post Test",
                 freelancerId: 1,
-                jobDescription: "Description",
-                jobPrice: 10000,
+                postDescription: "Description",
+                postPrice: 10000,
                 postCategory: 1,
                 thumbnailUrl: "google.com",
                 adPriority: 10
@@ -32,10 +32,10 @@ describe('Fail Inserting a Post: ', () => {
         chai.request(url)
             .post('/post/create')
             .send({
-                jobTitle: "Titulo sin editar",
+                postTitle: "Titulo test null",
                 freelancerId: null,
-                jobDescription: "Description",
-                jobPrice: 10000,
+                postDescription: "Description",
+                postPrice: 10000,
                 postCategory: 1,
                 thumbnailUrl: "google.com",
                 adPriority: 10

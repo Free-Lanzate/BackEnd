@@ -12,15 +12,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Post.init({
-      jobTitle: {
+      postTitle: {
           type: DataTypes.TEXT,
           allowNull: false,
       },
-      jobDescription: {
+      postDescription: {
           type: DataTypes.TEXT,
           allowNull: false,
       },
-      jobPrice: {
+      postPrice: {
           type: DataTypes.FLOAT,
           allowNull: false,
       },
