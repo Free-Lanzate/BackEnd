@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   PostCategory.init({
       categoryName: {
           type: DataTypes.STRING,
+          unique: true,
       }
   }, {
     sequelize,

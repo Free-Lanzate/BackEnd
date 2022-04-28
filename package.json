@@ -4,7 +4,14 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
+    "pretest": "cross-env NODE_ENV=test npm run migrate:reset"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "author": "",
   "license": "UNLICENSED",
@@ -17,6 +24,9 @@
     "sequelize-lazy-migrations": "^1.0.4"
   },
   "devDependencies": {
-    "sequelize-cli": "^6.4.1"
+    "cross-env": "^7.0.3",
+    "jest": "^28.0.2",
+    "sequelize-cli": "^6.4.1",
+    "supertest": "^6.2.3"
   }
 }

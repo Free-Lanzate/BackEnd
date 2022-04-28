@@ -6,7 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Freelancer.hasMany(models.Post, {
         foreignKey: {
-          allowNull: false
+          allowNull: false,
+          onUpdate: 'CASCADE',
         }
       });
     }
