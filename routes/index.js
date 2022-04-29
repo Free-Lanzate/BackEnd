@@ -1,3 +1,4 @@
+const RegisterController = require('../controllers/registerController');
 const UserController = require('../controllers/userController');
 const PostController = require('../controllers/postController');
 
@@ -14,5 +15,8 @@ module.exports = (app) => {
     router.post('/post/create', PostController.create)
     router.post('/post/:id/update', PostController.update)
     router.post('/post/:id/delete', PostController.delete)
+
+    //Register routes
+    router.post("/register", RegisterController.register)
     app.use("/", router);
 };
