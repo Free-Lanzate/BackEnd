@@ -2,6 +2,7 @@ const express       = require('express');
 const logger        = require('morgan');
 const bodyParser    = require('body-parser');
 const db = require('./models/index')
+const control = require('./controllers/userController')
 
 // Update database function
 function updateDatabase(){
@@ -10,15 +11,15 @@ function updateDatabase(){
      // Falta automatizar el comando npx sequelize-cli db:seed:all que 
      // crea las semillas (las filas demos de las tablas)
 }
-var arguments = process.argv
-if (arguments[2] == "updateDatabase"){
+var argumentsArr = process.argv
+if (argumentsArr[2] == "updateDatabase"){
      updateDatabase();
 }
 
 const http = require('http');
 const app = express();
 app.use(bodyParser.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }))
 require("./routes")(app);
 app.get('/', (req, res) => res.status(200).send({
      message: 'Bienvenido a Freelanzate',

@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "mocha ./tests/**/*Test.js --reporter spec"
+    "test": "mocha ./tests/**/*Test.js --reporter spec",
+    "doc": "jsdoc -d docs --configure jsconf.json app.js"
   },
   "author": "",
   "license": "UNLICENSED",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
+    "jsdoc": "^3.6.10",
     "sequelize-cli": "^6.4.1"
   }
 }

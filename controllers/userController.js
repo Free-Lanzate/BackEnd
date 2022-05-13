@@ -2,7 +2,13 @@ const db = require("../models");
 const User = db.User;
 const Op = db.Sequelize.Op;
 
-exports.findAll = (req, res) => {
+/**
+* This function returns a list of all Users
+* @param {req} request
+* @param {res} response
+* @returns {array} the list of users
+*/
+exports.findAll = (req, res) =>{
     const username = req.query.firstName;
     var condition = username ? { username: { [Op.like]: `%${username}%` } } : null;
     User.findAll({ where: condition })
@@ -82,4 +88,3 @@ exports.profileInfoById = (req, res) => {
             })
         });
 }
-
