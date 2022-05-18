@@ -1,54 +1,72 @@
+const db = require("../models");
+//const connection = require("express");
+const User = db.User;
+const { v4: uuidv4 } = require('uuid');
 
-const app = require("../app");
-const path = require("path");
-const connection = require("express");
-
-//http://localhost:8000/
-app.get('/', function(request, response) {
-    // Render login template
-    response.sendFile(path.join(__dirname + '/login.html'));
-});
-
-//http://localhost:8000/auth
-app.post('/auth', function(request, response) {
+exports.login = async (req, res) => {
     // Capture the input fields
-    let username = request.body.username;
-    let password = request.body.password;
+    let username = req.body.username;
+    let password = req.body.password;
     // Ensure the input fields exists and are not empty
     if (username && password) {
         // Execute SQL query that'll select the account from the database based on the specified username and password
-        connection.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
+        const search = await User.findOne({ where: { username: username, password: password } });
+        if (search === null) {
+            res.send('Incorrect Username and/or Password!');
+        } else {
+            // Authenticate the user
+            //req.session.loggedin = true;
+            //req.session.username = username;
+            // Redirect to home page
+            // res.redirect('/home');
+
+            res.send(generateToken(username));
+        }
+        /*connection.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
             // If there is an issue with the query, output the error
             if (error) throw error;
             // If the account exists
             if (results.length > 0) {
                 // Authenticate the user
-                request.session.loggedin = true;
-                request.session.username = username;
+                req.session.loggedin = true;
+                req.session.username = username;
                 // Redirect to home page
-                response.redirect('/home');
+                // res.redirect('/home');
+                res.send('Ok!');
             } else {
-                response.send('Incorrect Username and/or Password!');
+                res.send('Incorrect Username and/or Password!');
             }
-            response.end();
-        });
+            res.end();
+        });*/
+        res.end();
     } else {
-        response.send('Please enter Username and Password!');
-        response.end();
-    }
-});
+        res.send('Please enter Username and Password!');
+        res.end();
+    };
+};
 
-//http://localhost:8000/home
-app.get('/home', function(request, response) {
+exports.home = (req, res) => {
     //If the user is loggedin
-    if (request.session.loggedin) {
+    if (req.session.loggedin) {
         // Output username
-        response.send('Welcome back, ' + request.session.username + '!');
+        res.send('Welcome back, ' + req.session.username + '!');
     } else {
         // Not logged in
-        response.send('Please login to view this page!');
+        res.send('Please login to view this page!');
     }
-    response.end();
-});
+    res.end();
+};
 
-app.listen(8000);
+const secretKey = uuidv4();
+const nJwt = require('njwt');
+
+function generateToken(username){
+    const claims = {
+        sub: username,
+        iss: "https://freelanzate.com"
+    };
+
+    const jwt = nJwt.create(claims,secretKey);
+
+    return jwt.compact();
+}

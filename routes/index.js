@@ -1,6 +1,7 @@
 const RegisterController = require('../controllers/registerController');
 const UserController = require('../controllers/userController');
 const PostController = require('../controllers/postController');
+const LoginController = require('../controllers/loginController');
 
 module.exports = (app) => {
     var router = require("express").Router();
@@ -18,5 +19,9 @@ module.exports = (app) => {
 
     //Register routes
     router.post("/register", RegisterController.register)
-    app.use("/", router);
+
+    //Login routes
+    router.post("/login", LoginController.login)
+    router.get("/login", LoginController.home)
+    app.use("/freelanzate", router);
 };
