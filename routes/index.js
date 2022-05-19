@@ -19,6 +19,7 @@ module.exports = (app) => {
 
     //Register routes
     router.post("/register", RegisterController.register)
+    router.post("/register/freelancer", RegisterController.registerFreelancer)
 
     //Login routes
     router.post("/login", LoginController.login)
