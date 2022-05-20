@@ -4,7 +4,7 @@ const Freelancer = db.Freelancer;
 const { v4: uuidv4 } = require('uuid');
 const bcrypt = require("bcryptjs")
 
-exports.register = (req, res) => {
+exports.register = async (req, res) => {
     // Create an User
     const user = {
         username: req.body.username,
@@ -20,6 +20,7 @@ exports.register = (req, res) => {
         isFreelancer: req.body.isFreelancer
     }
     bcrypt.hash(user.password, 10).then(async (hash) => {
+        user.password = hash;
         await User.create(user)
             .then((user) => {
                 if (freelancer.isFreelancer) {
@@ -45,7 +46,6 @@ exports.registerFreelancer = (req,res) => {
         createdAt : currentTime(),
         userId: userId(token)
     }
-
     Freelancer.create(freelancer)
         .then(data => {
             res.send(data);
