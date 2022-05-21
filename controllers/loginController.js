@@ -6,27 +6,32 @@ const bcrypt = require("bcryptjs")
 
 exports.login = async (req, res) => {
     // Capture the input fields
-    let username = req.body.username;
+    let email = req.body.email;
     let password = req.body.password;
     // Ensure the input fields exists and are not empty
-    if (username && password) {
+    if (email && password) {
         // Execute SQL query that'll select the account from the database based on the specified username and password
-        const search = await User.findOne({ where: { username: username} });
+        const search = await User.findOne({ where: { email: email} });
         if (search === null) {
-            res.send('Incorrect Username!');
+            res.status(400).send('Incorrect Username!');
+            res.end();
         } else {
             // Authenticate the user
             //req.session.loggedin = true;
             //req.session.username = username;
             // Redirect to home page
             // res.redirect('/home');
-            const match = bcrypt.compare(password, search.password)
-            if (!match){
-                res.send('Incorrect Password!');
-            }
-            else{
-                res.send(generateToken(username));
-            }
+            bcrypt.compare(password, search.password, (err,match) => {
+                if (err) throw err
+                if (!match) {
+                    res.status(400).send('Incorrect Password!')
+                    res.end();
+                }
+                else{
+                    res.send(generateToken(email));
+                    res.end();
+                }
+            })
         }
         /*connection.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
             // If there is an issue with the query, output the error
@@ -44,11 +49,11 @@ exports.login = async (req, res) => {
             }
             res.end();
         });*/
-        res.end();
+
     } else {
-        res.send('Please enter Username and Password!');
+        res.status(400).send('Please enter Username and Password!');
         res.end();
-    };
+    }
 };
 
 exports.home = (req, res) => {

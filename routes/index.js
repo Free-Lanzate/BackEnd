@@ -24,5 +24,5 @@ module.exports = (app) => {
     //Login routes
     router.post("/login", LoginController.login)
     router.get("/login", LoginController.home)
-    app.use("/freelanzate", router);
+    app.use("/", router);
 };
