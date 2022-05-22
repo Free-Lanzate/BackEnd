@@ -28,7 +28,7 @@ exports.login = async (req, res) => {
                     res.end();
                 }
                 else{
-                    res.send(generateToken(email));
+                    res.send(generateToken(search));
                     res.end();
                 }
             })
