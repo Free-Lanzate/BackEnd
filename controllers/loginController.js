@@ -2,36 +2,32 @@ const db = require("../models");
 //const connection = require("express");
 const User = db.User;
 const { v4: uuidv4 } = require('uuid');
-const Op = db.Sequelize.Op;
+const bcrypt = require("bcryptjs")
 
 exports.login = async (req, res) => {
-    // Capture the input fields
-    let username = req.body.username;
+    let email = req.body.email;
     let password = req.body.password;
-
-    // Ensure the input fields exists and are not empty
-    if (username && password) {
-        // Execute SQL query that'll select the account from the database based on the specified username and password
-        const search = await User.findOne({ where: { username: username, password: password } });
+    if (email && password) {
+        const search = await User.findOne({ where: { email: email} });
         if (search === null) {
-            res.send('Incorrect Username and/or Password!');
+            res.status(400).send('Incorrect Username!');
+            res.end();
         } else {
-            let token;
-            User.findOne({ where: {username : username} })
-                .then(user => {
-                    token = generateToken(user);
-                    json = {"token": token}
-                    res.contentType('application/json');
-                    res.send(JSON.stringify(json));
+            bcrypt.compare(password, search.password, (err,match) => {
+                if (err) throw err
+                if (!match) {
+                    res.status(400).send('Incorrect Password!')
                     res.end();
-                })
-                .catch(err => {
-                    res.status(500).send({
-                        message:
-                            err.message || "Some error occurred while retrieving users."
-                    });
-                });
+                }
+                else{
+                    res.send(generateToken(search));
+                    res.end();
+                }
+            })
         }
+    } else {
+        res.status(400).send('Please enter Username and Password!');
+        res.end();
     }
 };
 
