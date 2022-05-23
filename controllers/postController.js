@@ -78,7 +78,7 @@ exports.delete = (req, res) => {
 
 exports.searchPost = (req, res) => {
     keyword = req.query.keyword
-    //Funciona como /search?keyword
+    //Funciona como /search?keyword=algo
     Post.findAll({
         where: {
             [Op.or]: [
