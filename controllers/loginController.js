@@ -13,7 +13,7 @@ exports.login = async (req, res) => {
         // Execute SQL query that'll select the account from the database based on the specified username and password
         const search = await User.findOne({ where: { email: email} });
         if (search === null) {
-            res.status(400).send('Incorrect Username!');
+            res.status(400).send('Nombre de usuario incorrecto');
             res.end();
         } else {
             // Authenticate the user
@@ -24,7 +24,7 @@ exports.login = async (req, res) => {
             bcrypt.compare(password, search.password, (err,match) => {
                 if (err) throw err
                 if (!match) {
-                    res.status(400).send('Incorrect Password!')
+                    res.status(400).send('La contraseña es incorrecta.')
                     res.end();
                 }
                 else{
@@ -51,7 +51,7 @@ exports.login = async (req, res) => {
         });*/
 
     } else {
-        res.status(400).send('Please enter Username and Password!');
+        res.status(400).send('Por favor ingrese todos los campos');
         res.end();
     }
 };
