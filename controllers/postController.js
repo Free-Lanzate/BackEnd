@@ -109,7 +109,9 @@ exports.searchPost = (req, res) => {
             required: false,
         }
 
-    ]})
+        ],
+        order: [['adPriority', 'DESC']]
+    })
       .then(data => {
         res.send(data);
       })
