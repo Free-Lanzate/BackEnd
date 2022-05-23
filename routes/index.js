@@ -32,7 +32,7 @@ module.exports = (app) => {
     
     //Search route
     //Funciona como /search?keyword=algo
-    router.get("/search?:keyword", PostController.searchPost)
+    router.get("/search", PostController.searchPost)
 
     
     app.use("/", router);
