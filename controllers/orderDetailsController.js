@@ -41,7 +41,7 @@ exports.findAllOrderedItemsByUser = (req, res) => {
         },
         include: [{
             model: db.OrderItem,
-            attributes: ['PostId'],
+            attributes: ['PostId', 'createdAt'],
             required: true,
             include: {
                 model: db.Post,
@@ -66,7 +66,7 @@ exports.findAllOrderedItemsByUser = (req, res) => {
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving tutorials."
+            err.message || "Some error occurred while retrieving the orders."
         });
       });
   };

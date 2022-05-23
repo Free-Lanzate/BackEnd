@@ -2,9 +2,9 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    // Uno tiene la palabra programacion el el titulo, otra en la descripcion. Para testear algo de busqueda.
+    // Uno tiene la palabra programacion, luego veo con tilde, en el titulo, otra en la descripcion. Para testear algo de busqueda.
     return queryInterface.bulkInsert('Posts', [{
-      postTitle: "Progracion en Java y Python",
+      postTitle: "Programacion en Java y Python",
       FreelancerId: 1,
       postDescription: "Una descripcion de todos los tutoriales de youtube que he visto",
       postPrice: 1000,

@@ -76,4 +76,47 @@ exports.delete = (req, res) => {
         });
 };
 
+exports.searchPost = (req, res) => {
+    keyword = req.query.keyword
+    //Funciona como /search?keyword
+    Post.findAll({
+        where: {
+            [Op.or]: [
+                {
+                    postTitle:  {
+                        [Op.like]: `%${keyword}%`
+                    }
+                },
+                {
+                    postDescription: {
+                        [Op.like]: `%${keyword}%`
+                    }   
+                }
+            ]
+        },     
+        include: [{
+            model: db.Freelancer,
+            attributes: ['freelancerRating'],
+            required: true,
+            include: {
+                model: db.User,
+                attributes: ['username', 'firstName', 'lastName']
+            }
+        },
+        {
+            model: db.Attachment,
+            attributes: ['url'],
+            required: false,
+        }
 
+    ]})
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving the posts."
+        });
+      });
+  };

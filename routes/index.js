@@ -30,6 +30,10 @@ module.exports = (app) => {
 
     router.get("/profile/:id/orders", orderDetailsController.findAllOrderedItemsByUser)
     
+    //Search route
+    //Funciona como /search?keyword
+    router.get("/search?:keyword", PostController.searchPost)
+
     
     app.use("/", router);
 };
