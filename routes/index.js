@@ -2,7 +2,7 @@ const RegisterController = require('../controllers/registerController');
 const UserController = require('../controllers/userController');
 const PostController = require('../controllers/postController');
 const LoginController = require('../controllers/loginController');
-
+const orderDetailsController = require('../controllers/orderDetailsController')
 module.exports = (app) => {
     var router = require("express").Router();
 
@@ -24,5 +24,12 @@ module.exports = (app) => {
     //Login routes
     router.post("/login", LoginController.login)
     router.get("/login", LoginController.home)
+    
+
+    //Order routes
+
+    router.get("/profile/:id/orders", orderDetailsController.findAllOrderedItemsByUser)
+    
+    
     app.use("/", router);
 };

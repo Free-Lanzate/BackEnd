@@ -7,6 +7,12 @@ module.exports = {
       freelancerRating: 10,
       createdAt: new Date(),
       updatedAt: new Date()
+    },
+    {
+      id: 2,
+      freelancerRating: 5,
+      createdAt: new Date(),
+      updatedAt: new Date()
     }]);
   },
 

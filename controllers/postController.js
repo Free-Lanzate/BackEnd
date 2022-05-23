@@ -3,14 +3,12 @@ const Post = db.Post;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
-    // Validate request
     if (!req.body.postTitle) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
         return;
     }
-    // Create a Post
     const post = {
         postTitle: req.body.postTitle,
         FreelancerId: req.body.freelancerId,
@@ -20,7 +18,6 @@ exports.create = (req, res) => {
         thumbnailUrl: req.body.postPrice,
         adPriority: req.body.adPriority,
     };
-    // Save Post in the database
     Post.create(post)
         .then(data => {
             res.send(data);

@@ -14,7 +14,13 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: {
           allowNull: false,
         }
-      })
+      });
+      User.hasMany(models.OrderDetails, {
+        foreignKey: {
+          allowNull: false,
+          onUpdate: 'CASCADE',
+        }
+      });
     }
   }
   User.init({

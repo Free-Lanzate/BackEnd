@@ -9,6 +9,11 @@ module.exports = (sequelize, DataTypes) => {
               allowNull: false
             }
           });
+        Post.hasMany(models.OrderItem,{
+            foreignKey: {
+              allowNull: false
+            }
+          });
     }
   }
   Post.init({
@@ -21,8 +26,13 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: false,
       },
       postPrice: {
-          type: DataTypes.FLOAT,
-          allowNull: false,
+        type: DataTypes.DECIMAL(19, 0),
+        allowNull: false,
+        // getter example used in orderItemController
+        get() {
+          const rawValue = this.getDataValue('postPrice');
+          return rawValue
+        }
       },
       thumbnailUrl: {
           type: DataTypes.STRING,

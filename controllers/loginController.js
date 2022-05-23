@@ -5,7 +5,6 @@ const { v4: uuidv4 } = require('uuid');
 const bcrypt = require("bcryptjs")
 
 exports.login = async (req, res) => {
-    // Capture the input fields
     let email = req.body.email;
     let password = req.body.password;
     // Ensure the input fields exists and are not empty
