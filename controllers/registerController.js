@@ -48,7 +48,7 @@ exports.registerFreelancer = (req,res) => {
         websiteUrl : req.body.websiteUrl,
         freelancerDescription: req.body.freelancerRating,
         createdAt : currentTime(),
-        userId: userId(token)
+        id: userId(token)
     }
     Freelancer.create(freelancer)
         .then(data => {
