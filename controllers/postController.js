@@ -3,14 +3,12 @@ const Post = db.Post;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
-    // Validate request
     if (!req.body.postTitle) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
         return;
     }
-    // Create a Post
     const post = {
         postTitle: req.body.postTitle,
         FreelancerId: req.body.freelancerId,
@@ -20,7 +18,6 @@ exports.create = (req, res) => {
         thumbnailUrl: req.body.postPrice,
         adPriority: req.body.adPriority,
     };
-    // Save Post in the database
     Post.create(post)
         .then(data => {
             res.send(data);
@@ -79,4 +76,49 @@ exports.delete = (req, res) => {
         });
 };
 
+exports.searchPost = (req, res) => {
+    keyword = req.query.keyword
+    //Funciona como /search?keyword=algo
+    Post.findAll({
+        where: {
+            [Op.or]: [
+                {
+                    postTitle:  {
+                        [Op.like]: `%${keyword}%`
+                    }
+                },
+                {
+                    postDescription: {
+                        [Op.like]: `%${keyword}%`
+                    }   
+                }
+            ]
+        },     
+        include: [{
+            model: db.Freelancer,
+            attributes: ['freelancerRating'],
+            required: true,
+            include: {
+                model: db.User,
+                attributes: ['username', 'firstName', 'lastName']
+            }
+        },
+        {
+            model: db.Attachment,
+            attributes: ['url'],
+            required: false,
+        }
 
+        ],
+        order: [['adPriority', 'DESC']]
+    })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving the posts."
+        });
+      });
+  };

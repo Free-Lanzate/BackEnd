@@ -5,14 +5,22 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       User.hasOne(models.Freelancer,{
         foreignKey: {
-          allowNull: false
+          allowNull: false,
+          name: 'id',
+          primaryKey: true
         }
       });
       User.hasMany(models.Review, {
         foreignKey: {
           allowNull: false,
         }
-      })
+      });
+      User.hasMany(models.OrderDetails, {
+        foreignKey: {
+          allowNull: false,
+          onUpdate: 'CASCADE',
+        }
+      });
     }
   }
   User.init({
@@ -43,6 +51,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     avatarUrl: {
       type: DataTypes.STRING,
+    },
+    isFreelancer: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
     }
   }, {
     sequelize,
