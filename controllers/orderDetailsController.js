@@ -45,8 +45,18 @@ exports.findAllOrderedItemsByUser = (req, res) => {
             required: true,
             include: {
                 model: db.Post,
-                attributes: ['PostName'],
+                attributes: ['PostTitle'],
                 required: true,
+                include: {
+                    model: db.Freelancer,
+                    attributes: ['freelancerRating'],
+                    required: true,
+                    include: {
+                        model: db.User,
+                        attributes: ['username','firstName', 'lastName'],
+                        required: true
+                    }
+                }
             }
         }
     ]})

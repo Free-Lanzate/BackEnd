@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
                     allowNull: false
                 }
             });
+            OrderItem.belongsTo(models.Post)
         }
     }
     OrderItem.init({

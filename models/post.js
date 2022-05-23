@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
               allowNull: false
             }
           });
+        Post.belongsTo(models.Freelancer);
     }
   }
   Post.init({
