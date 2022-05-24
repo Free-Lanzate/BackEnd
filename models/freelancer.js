@@ -15,11 +15,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Freelancer.init({
-    id: {
-      primaryKey: true,
-      type: DataTypes.INTEGER,
-      unique: true,
-    },
     freelancerRating: {
       type: DataTypes.INTEGER,
       allowNull: false
