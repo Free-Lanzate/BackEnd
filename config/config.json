@@ -1,14 +1,14 @@
 {
   "development": {
-    "username": "root",
-    "password": "1234",
+    "username": "ingesoft_user",
+    "password": "123456789",
     "database": "freelanzate",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": "1234",
+    "username": "ingesoft_user",
+    "password": "123456789",
     "database": "freelanzate",
     "host": "127.0.0.1",
     "dialect": "mysql"
