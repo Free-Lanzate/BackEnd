@@ -13,7 +13,6 @@ exports.register = async (req, res) => {
         password: req.body.password,
         email: req.body.email,
         isFreelancer: req.body.isFreelancer,
-        location: req.body.location,
         avatarUrl: req.body.avatarUrl,
         createdAt: currentTime()
     };
@@ -47,6 +46,10 @@ exports.registerFreelancer = (req,res) => {
         oneliner : req.body.oneliner,
         websiteUrl : req.body.websiteUrl,
         freelancerDescription: req.body.freelancerRating,
+        country: req.body.country,
+        city: req.body.city,
+        postalCode: req.body.postalCode,
+        address: req.body.address,
         createdAt : currentTime(),
         id: userId(token)
     }
