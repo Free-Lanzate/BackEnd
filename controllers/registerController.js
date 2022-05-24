@@ -2,7 +2,7 @@ const db = require("../models");
 const User = db.User;
 const Freelancer = db.Freelancer;
 const { v4: uuidv4 } = require('uuid');
-const bcrypt = require("bcryptjs")
+const bcrypt = require("bcryptjs");
 
 exports.register = async (req, res) => {
     // Create an User

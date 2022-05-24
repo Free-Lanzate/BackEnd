@@ -3,6 +3,7 @@ const UserController = require('../controllers/userController');
 const PostController = require('../controllers/postController');
 const LoginController = require('../controllers/loginController');
 const orderDetailsController = require('../controllers/orderDetailsController')
+const forgotPasswordController = require('../controllers/forgotPasswordController')
 module.exports = (app) => {
     var router = require("express").Router();
 
@@ -34,6 +35,8 @@ module.exports = (app) => {
     //Funciona como /search?keyword=algo
     router.get("/search", PostController.searchPost)
 
-    
+    //RecoveryPassword routes
+    router.post("/recoveryPassword", forgotPasswordController.sendEmail)
+    router.post("/resetPassword/:id/:tokenResetPassword", forgotPasswordController.resetPassword)
     app.use("/", router);
 };

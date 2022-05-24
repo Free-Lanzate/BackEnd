@@ -31,6 +31,16 @@ module.exports = {
       password: 'password3',
       createdAt: new Date(),
       updatedAt: new Date()
+    },
+    {
+      username: "dzambranob",
+      firstName: 'David',
+      lastName: 'Zambrano',
+      email: 'davidalexz2015@gmail.com',
+      isFreelancer: false,
+      password: 'password4',
+      createdAt: new Date(),
+      updatedAt: new Date()
     }]);
   },
 
