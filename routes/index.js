@@ -17,6 +17,7 @@ module.exports = (app) => {
     router.post('/post/create', PostController.create)
     router.post('/post/:id/update', PostController.update)
     router.post('/post/:id/delete', PostController.delete)
+    router.post('/post/:id', PostController.getPostInfo)
 
     //Register routes
     router.post("/register", RegisterController.register)
