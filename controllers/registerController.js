@@ -51,7 +51,6 @@ exports.registerFreelancer = (req,res) => {
         address: req.body.address,
         createdAt : currentTime(),
         UserId: req.body.UserId
-        //UserId: req.body.UserId,
     }
     Freelancer.create(freelancer)
         .then(data => {
