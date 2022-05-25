@@ -2,6 +2,7 @@ const express       = require('express');
 const logger        = require('morgan');
 const bodyParser    = require('body-parser');
 const db = require('./models/index')
+const cors = require('cors')
 const control = require('./controllers/userController')
 
 // Update database function
@@ -18,6 +19,7 @@ if (argumentsArr[2] == "updateDatabase"){
 
 const http = require('http');
 const app = express();
+app.use(cors());
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }))
 require("./routes")(app);
