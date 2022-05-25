@@ -4,6 +4,7 @@ const PostController = require('../controllers/postController');
 const LoginController = require('../controllers/loginController');
 const orderDetailsController = require('../controllers/orderDetailsController')
 const forgotPasswordController = require('../controllers/forgotPasswordController')
+const FreelancerController = require('../controllers/freelancerController');
 module.exports = (app) => {
     var router = require("express").Router();
 
@@ -26,10 +27,8 @@ module.exports = (app) => {
     //Login routes
     router.post("/login", LoginController.login)
     router.get("/login", LoginController.home)
-    
 
     //Order routes
-
     router.get("/profile/:id/orders", orderDetailsController.findAllOrderedItemsByUser)
     
     //Search route
@@ -39,5 +38,10 @@ module.exports = (app) => {
     //RecoveryPassword routes
     router.post("/recoveryPassword", forgotPasswordController.sendEmail)
     router.post("/resetPassword/:id/:tokenResetPassword", forgotPasswordController.resetPassword)
+    //Freelancer routes
+    router.get("/freelancer", FreelancerController.findAllFreelancers);
+    router.get("/freelancer/:id", FreelancerController.findFreelancerById);
+    router.get("/freelancer/profile/:id", FreelancerController.profileInfoFreelancerById);
+    //router.get("/freelancer/profile/:username", FreelancerController.profileInfoFreelancerByUsername);
     app.use("/", router);
 };
