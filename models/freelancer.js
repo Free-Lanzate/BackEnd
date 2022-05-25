@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
         }
       });
       Freelancer.belongsTo(models.User, {
-        foreignKey: 'id'
+        allowNull: false,
+        onUpdate: 'CASCADE',
       });
     }
   }

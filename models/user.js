@@ -6,9 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       User.hasOne(models.Freelancer,{
         foreignKey: {
           allowNull: false,
-          name: 'id',
-          primaryKey: true
-        }
+          onUpdate: 'CASCADE'       }
       });
       User.hasMany(models.Review, {
         foreignKey: {

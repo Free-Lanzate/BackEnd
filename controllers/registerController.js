@@ -51,7 +51,8 @@ exports.registerFreelancer = (req,res) => {
         postalCode: req.body.postalCode,
         address: req.body.address,
         createdAt : currentTime(),
-        id: userId(token)
+        //UserId: req.body.UserId,
+        UserId: userId(token)
     }
     Freelancer.create(freelancer)
         .then(data => {
