@@ -29,6 +29,9 @@ module.exports = {
       email: 'user1@example.com',
       isFreelancer: false,
       password: 'password3',
+      email: 'example@example.com',
+      isFreelancer: true,
+      password: 'password',
       createdAt: new Date(),
       updatedAt: new Date()
     }]);

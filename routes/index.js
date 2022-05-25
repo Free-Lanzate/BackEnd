@@ -3,6 +3,8 @@ const UserController = require('../controllers/userController');
 const PostController = require('../controllers/postController');
 const LoginController = require('../controllers/loginController');
 const orderDetailsController = require('../controllers/orderDetailsController')
+const FreelancerController = require('../controllers/freelancerController');
+
 module.exports = (app) => {
     var router = require("express").Router();
 
@@ -24,16 +26,19 @@ module.exports = (app) => {
     //Login routes
     router.post("/login", LoginController.login)
     router.get("/login", LoginController.home)
-    
 
     //Order routes
-
     router.get("/profile/:id/orders", orderDetailsController.findAllOrderedItemsByUser)
     
     //Search route
     //Funciona como /search?keyword=algo
     router.get("/search", PostController.searchPost)
 
-    
+    //Freelancer routes
+    router.get("/freelancer", FreelancerController.findAllFreelancers);
+    router.get("/freelancer/:id", FreelancerController.findFreelancerById);
+    router.get("/freelancer/profile/:id", FreelancerController.profileInfoFreelancerById);
+    //router.get("/freelancer/profile/:username", FreelancerController.profileInfoFreelancerByUsername);
+
     app.use("/", router);
 };
