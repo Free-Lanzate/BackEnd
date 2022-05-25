@@ -17,6 +17,7 @@ exports.login = async (req, res) => {
                 if (err) throw err
                 if (!match) {
                     res.status(400).send('Incorrect Password!')
+
                     res.end();
                 }
                 else{
@@ -27,6 +28,7 @@ exports.login = async (req, res) => {
         }
     } else {
         res.status(400).send('Please enter Username and Password!');
+
         res.end();
     }
 };

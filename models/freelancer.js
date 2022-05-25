@@ -22,6 +22,9 @@ module.exports = (sequelize, DataTypes) => {
           onUpdate: 'CASCADE',
         }
       });
+      Freelancer.belongsTo(models.User, {
+        foreignKey: 'id'
+      });
     }
   }
   Freelancer.init({
