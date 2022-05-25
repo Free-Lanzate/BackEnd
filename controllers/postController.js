@@ -122,3 +122,23 @@ exports.searchPost = (req, res) => {
         });
       });
   };
+
+exports.getPostInfo = (req,res) => {
+    const postId = req.params.id
+    Post.getPostInfo(postId)
+    .then(data => {
+        if (data) {
+            res.send(data);
+        } else {
+            res.status(404).send({
+                message: `Cannot find Post with id=${postId}.`
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: "Error finding Post with id=" + postId,
+            err
+        })
+    });
+};

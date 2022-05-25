@@ -2,7 +2,9 @@ const db = require("../models");
 const User = db.User;
 const Freelancer = db.Freelancer;
 const { v4: uuidv4 } = require('uuid');
-const bcrypt = require("bcryptjs")
+const bcrypt = require("bcryptjs");
+const secretKey = uuidv4();
+const nJwt = require('njwt');
 
 exports.register = async (req, res) => {
     // Create an User
@@ -13,18 +15,14 @@ exports.register = async (req, res) => {
         password: req.body.password,
         email: req.body.email,
         isFreelancer: req.body.isFreelancer,
-        location: req.body.location,
         avatarUrl: req.body.avatarUrl,
         createdAt: currentTime()
     };
-    const freelancer = {
-        isFreelancer: req.body.isFreelancer
-    }
     bcrypt.hash(user.password, 10).then(async (hash) => {
         user.password = hash;
         await User.create(user)
             .then((user) => {
-                if (freelancer.isFreelancer) {
+                if (user.isFreelancer) {
                     res.send(generateToken(user.id));
                 }
                 else{
@@ -42,13 +40,19 @@ exports.register = async (req, res) => {
 
 exports.registerFreelancer = (req,res) => {
     const token = req.body.token
+    const decodeToken = nJwt.verify(token, secretKey);
     const freelancer = {
         freelancerRating: req.body.freelancerRating,
         oneliner : req.body.oneliner,
         websiteUrl : req.body.websiteUrl,
-        freelancerDescription: req.body.freelancerRating,
+        freelancerDescription: req.body.freelancerDescription,
+        country: req.body.country,
+        city: req.body.city,
+        postalCode: req.body.postalCode,
+        address: req.body.address,
         createdAt : currentTime(),
-        id: userId(token)
+        //UserId: req.body.UserId,
+        UserId: decodeToken.body.sub
     }
     Freelancer.create(freelancer)
         .then(data => {
@@ -72,8 +76,7 @@ function currentTime(){
     let seconds = date_ob.getSeconds();
     return(year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds);
 }
-const secretKey = uuidv4();
-const nJwt = require('njwt');
+
 function generateToken(username){
     const claims = {
         sub: username,
@@ -81,9 +84,4 @@ function generateToken(username){
     };
     const jwt = nJwt.create(claims,secretKey);
     return jwt.compact();
-}
-function userId(token){
-    nJwt.verify(token, secretKey, (err, decodedToken) => {
-        return decodedToken
-    })
 }

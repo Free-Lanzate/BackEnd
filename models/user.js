@@ -6,9 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       User.hasOne(models.Freelancer,{
         foreignKey: {
           allowNull: false,
-          name: 'id',
-          primaryKey: true
-        }
+          onUpdate: 'CASCADE'       }
       });
       User.hasMany(models.Review, {
         foreignKey: {
@@ -44,7 +42,10 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
+      unique: true,
+      validator: {
+        isEmail: true
+      }
     },
     location: {
       type: DataTypes.STRING,
@@ -56,6 +57,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false
+    },
+    tokenResetPassword: {
+      type: DataTypes.STRING(700),
+      allowNull: true
     }
   }, {
     sequelize,
