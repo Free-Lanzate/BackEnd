@@ -39,10 +39,6 @@ module.exports = {
       email: 'davidalexz2015@gmail.com',
       isFreelancer: false,
       password: '$2a$10$jCg.1fe7OosJsgRNHx0QKe7c6tS6P/us85IdqzA2ZUlH6ldQ6vnnK',
-      password: 'password3',
-      email: 'example@example.com',
-      isFreelancer: true,
-      password: 'password',
       createdAt: new Date(),
       updatedAt: new Date()
     }]);

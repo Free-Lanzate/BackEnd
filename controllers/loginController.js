@@ -10,13 +10,13 @@ exports.login = async (req, res) => {
     if (email && password) {
         const search = await User.findOne({ where: { email: email} });
         if (search === null) {
-            res.status(400).send('Incorrect Username!');
+            res.status(400).send('INombre de usuario incorrecto');
             res.end();
         } else {
             bcrypt.compare(password, search.password, (err,match) => {
                 if (err) throw err
                 if (!match) {
-                    res.status(400).send('Incorrect Password!')
+                    res.status(400).send('La contraseña es incorrecta.')
                     res.end();
                 }
                 else{
@@ -26,7 +26,7 @@ exports.login = async (req, res) => {
             })
         }
     } else {
-        res.status(400).send('Please enter Username and Password!');
+        res.status(400).send('Por favor ingrese todos los campos');
         res.end();
     }
 };

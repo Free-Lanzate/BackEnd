@@ -23,7 +23,7 @@ exports.register = async (req, res) => {
         await User.create(user)
             .then((user) => {
                 if (user.isFreelancer) {
-                    res.send(generateToken(user.id));
+                    res.send(user);
                 }
                 else{
                     res.send(user)
@@ -40,7 +40,6 @@ exports.register = async (req, res) => {
 
 exports.registerFreelancer = (req,res) => {
     const token = req.body.token
-    const decodeToken = nJwt.verify(token, secretKey);
     const freelancer = {
         freelancerRating: req.body.freelancerRating,
         oneliner : req.body.oneliner,
@@ -51,15 +50,15 @@ exports.registerFreelancer = (req,res) => {
         postalCode: req.body.postalCode,
         address: req.body.address,
         createdAt : currentTime(),
+        UserId: req.body.UserId
         //UserId: req.body.UserId,
-        UserId: decodeToken.body.sub
     }
     Freelancer.create(freelancer)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
-            res.status(500).send({
+            res.status(400).send({
                 message:
                     err.message || "Some error occurred while creating the User."
             });
