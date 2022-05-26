@@ -9,6 +9,7 @@ module.exports = {
       city: "Zipaquira",
       postalCode: "254000",
       address: "Cra 0#00",
+      phoneNumber: '3213249137',
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -19,6 +20,7 @@ module.exports = {
       city: "Pacho",
       postalCode: "254001",
       address: "Cra 1#11",
+      phoneNumber: '3213249138',
       createdAt: new Date(),
       updatedAt: new Date()
     }]);

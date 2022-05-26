@@ -15,7 +15,7 @@ exports.create = (req, res) => {
         postDescription: req.body.postDescription,
         postPrice: req.body.postPrice,
         PostCategoryId: req.body.postCategory,
-        thumbnailUrl: req.body.postPrice,
+        thumbnailUrl: req.body.thumbnailUrl,
         adPriority: req.body.adPriority,
     };
     Post.create(post)

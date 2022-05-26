@@ -44,13 +44,18 @@ exports.registerFreelancer = (req,res) => {
         freelancerRating: req.body.freelancerRating,
         oneliner : req.body.oneliner,
         websiteUrl : req.body.websiteUrl,
+        facebookUrl : req.body.facebookUrl,
+        twitterUrl : req.body.twitterUrl,
+        instagramUrl : req.body.instagramUrl,
+        linkedinUrl : req.body.linkedinUrl,
         freelancerDescription: req.body.freelancerDescription,
         country: req.body.country,
         city: req.body.city,
         postalCode: req.body.postalCode,
         address: req.body.address,
         createdAt : currentTime(),
-        UserId: req.body.UserId
+        UserId: req.body.UserId,
+        phoneNumber: req.body.phoneNumber
     }
     Freelancer.create(freelancer)
         .then(data => {
