@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "mocha ./tests/**/*Test.js --reporter spec",
+    "test": "mocha ./tests/**/*Test.js --timeout 10000 --reporter spec",
     "doc": "jsdoc -d docs --configure jsconf.json app.js"
   },
   "author": "",
