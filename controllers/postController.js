@@ -142,3 +142,36 @@ exports.getPostInfo = (req,res) => {
         })
     });
 };
+
+exports.getRelatedPosts = (req, res) => {
+    //gets posts in the same category
+    //their freelancer
+    const postId = req.params.id
+    Post.findAll({
+        where: {
+            PostCategoryId: postId,
+            [Op.not]: {
+                id: postId
+            }
+        },
+        include: [{
+            model: db.Freelancer,
+            attributes: ['id', 'freelancerRating'],
+            required: true,
+            include: {
+                model: db.User,
+                attributes: ['username', 'firstName', 'lastName']
+            }
+        }
+        ]
+    })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving the posts."
+            });
+        });
+};

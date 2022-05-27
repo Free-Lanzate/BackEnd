@@ -5,6 +5,8 @@ const LoginController = require('../controllers/loginController');
 const orderDetailsController = require('../controllers/orderDetailsController')
 const forgotPasswordController = require('../controllers/forgotPasswordController')
 const FreelancerController = require('../controllers/freelancerController');
+const PostCategoryController = require('../controllers/postCategoryController');
+
 module.exports = (app) => {
     var router = require("express").Router();
 
@@ -13,12 +15,17 @@ module.exports = (app) => {
     router.get("/user/:id", UserController.findUserById)
     router.post("/users/create", UserController.create)
     router.get("/profile/:id", UserController.profileInfoById)
+    router.post("/user/:id/update", UserController.update)
+
+    // PostCategory routes
+    router.get("/categories", PostCategoryController.getCategories)
 
     // Post routes
     router.post('/post/create', PostController.create)
     router.post('/post/:id/update', PostController.update)
     router.post('/post/:id/delete', PostController.delete)
     router.post('/post/:id', PostController.getPostInfo)
+    router.get("/post/:id/related", PostController.getRelatedPosts)
 
     //Register routes
     router.post("/register", RegisterController.register)

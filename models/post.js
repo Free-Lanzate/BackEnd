@@ -35,8 +35,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         // getter example used in orderItemController
         get() {
-          const rawValue = this.getDataValue('postPrice');
-          return rawValue
+          return this.getDataValue('postPrice');
         }
       },
       thumbnailUrl: {

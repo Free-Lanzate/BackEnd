@@ -24,6 +24,17 @@ module.exports = {
       adPriority: 8,
       createdAt: new Date(),
       updatedAt: new Date()
+    },
+    {
+      postTitle: "Programador de Aplicaciones moviles",
+      FreelancerId: 2,
+      postDescription: "Una descripcion",
+      postPrice: 2000,
+      PostCategoryId: 1,
+      thumbnailUrl: "/public/someimage",
+      adPriority: 8,
+      createdAt: new Date(),
+      updatedAt: new Date()
     }, 
   
   ]);

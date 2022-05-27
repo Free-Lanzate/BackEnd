@@ -8,6 +8,7 @@ const Op = db.Sequelize.Op;
 * @param {res} response
 * @returns {array} the list of users
 */
+
 exports.findAll = (req, res) =>{
     const username = req.query.firstName;
     var condition = username ? { username: { [Op.like]: `%${username}%` } } : null;
@@ -88,3 +89,50 @@ exports.profileInfoById = (req, res) => {
             })
         });
 }
+
+exports.update = (req, res) => {
+    const id = req.params.id;
+    User.update(req.body, {
+        where: { id: id }
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "User was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update User with id=${id}. Maybe User was not found or req.body is empty!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating Post with id=" + id
+            });
+        });
+};
+
+
+exports.delete = (req, res, model) => {
+    const id = req.params.id;
+    model.destroy({
+        where: { id: id }
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "User was deleted successfully!"
+                });
+            } else {
+                res.send({
+                    message: `Cannot delete User with id=${id}. Maybe User was not found!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Could not delete User with id=" + id
+            });
+        });
+};
