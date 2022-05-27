@@ -6,14 +6,17 @@ const cors = require('cors')
 const control = require('./controllers/userController')
 
 // Update database function
-function updateDatabase(){
-     db.sequelize.sync({ force: true });
-     console.log("All models were synchronized successfully.");
+async function updateDatabase(){
+     await db.sequelize.sync({ force: true });
 }
 var argumentsArr = process.argv
+async function update(){
+     await updateDatabase();
+     console.log("Models updated");
+     process.exit()
+}
 if (argumentsArr[2] == "updateDatabase"){
-     updateDatabase();
-     process.exit();
+     update();
 }
 
 const http = require('http');
