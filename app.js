@@ -9,12 +9,11 @@ const control = require('./controllers/userController')
 function updateDatabase(){
      db.sequelize.sync({ force: true });
      console.log("All models were synchronized successfully.");
-     // Falta automatizar el comando npx sequelize-cli db:seed:all que 
-     // crea las semillas (las filas demos de las tablas)
 }
 var argumentsArr = process.argv
 if (argumentsArr[2] == "updateDatabase"){
      updateDatabase();
+     process.exit();
 }
 
 const http = require('http');
