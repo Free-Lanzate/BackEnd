@@ -1,0 +1,24 @@
+name: Build and Deploy on Server
+
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: appleboy/ssh-action@v0.1.2
+
+      - name: Deploy? pull Node app from server
+        with: 
+          host: ${{secrets.SSH_HOST}}
+          key: ${{secrets.SERVER_PK}}
+          username: ${{secrets.SERVER_USERNAME}}
+          
+          script: |
+            cd /var/www/freelanzate/BackEnd
+            git pull
+            echo 'pull finalizado'
