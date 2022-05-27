@@ -22,4 +22,7 @@ jobs:
           script: |
             cd /var/www/freelanzate/BackEnd
             git pull
+            node app.js updateDatabase
+            npx sequelize-cli db:seed:all
+            node app.js
             echo 'pull finalizado'
