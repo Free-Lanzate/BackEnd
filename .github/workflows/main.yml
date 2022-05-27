@@ -10,9 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: appleboy/ssh-action@v0.1.2
-
-      - name: Deploy? pull Node app from server
+      - name: Deploy pull Node app from server
+        uses: appleboy/ssh-action@v0.1.2
+        
+        
         with: 
           host: ${{secrets.SSH_HOST}}
           key: ${{secrets.SERVER_PK}}
