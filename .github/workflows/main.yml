@@ -20,9 +20,12 @@ jobs:
           username: ${{secrets.SERVER_USERNAME}}
           
           script: |
+            killall -9 node
             cd /var/www/freelanzate/BackEnd
             git pull
             node app.js updateDatabase
             npx sequelize-cli db:seed:all
             node app.js
+            cd /var/www/FrontEnd/src/
+            npm run start
             echo 'pull finalizado'
