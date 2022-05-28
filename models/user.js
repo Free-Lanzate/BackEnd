@@ -1,4 +1,3 @@
-
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -6,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
       User.hasOne(models.Freelancer,{
         foreignKey: {
           allowNull: false,
-          onUpdate: 'CASCADE'       }
+          onUpdate: 'CASCADE'       
+        }
       });
       User.hasMany(models.Review, {
         foreignKey: {
@@ -19,13 +19,19 @@ module.exports = (sequelize, DataTypes) => {
           onUpdate: 'CASCADE',
         }
       });
+      User.hasOne(models.ShoppingSession, {
+        foreignKey: 'userId'
+      })
     }
   }
   User.init({
     username: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
+      unique: {
+        args: true,
+        msg: "El username ya se encuentra en uso."
+      }
     },
     firstName: {
       type: DataTypes.STRING,
@@ -39,15 +45,24 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [8, 256]
+        len: {
+          args: [8, 256],
+          msg: "La contrasena debe tener almenos 8 caracteres"
+        }
       }
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      unique: {
+        args: true,
+        msg: "La cuenta de correo ya se encuentro en uso."
+      },
       validate: {
-        isEmail: true
+        isEmail: {
+          args: true,
+          msg: "La direccion de correo no es valida."
+        }
       }
     },
     location: {
@@ -68,6 +83,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'User',
+  });
+  User.afterCreate('myHook', (user, options) => {
+    console.log(user.id)
+    const db = require('../models');
+    db.ShoppingSession.create({userId: user.id});
   });
   return User;
 };

@@ -13,7 +13,13 @@ module.exports = (sequelize, DataTypes) => {
             foreignKey: {
               allowNull: false
             }
-          });
+        });
+        Post.hasMany(models.CartItem,{
+          foreignKey: {
+            name: 'postId',
+            allowNull: false
+          }
+        });
         Post.belongsTo(models.Freelancer);
     }
     static async getPostInfo(postId) {

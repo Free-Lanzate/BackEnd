@@ -1,6 +1,7 @@
 const db = require("../models");
 const User = db.User;
 const Op = db.Sequelize.Op;
+const ShoppingSession = db.ShoppingSession
 
 /**
 * This function returns a list of all Users
@@ -39,7 +40,6 @@ exports.create = (req, res) => {
         password: req.body.password,
         email: req.body.email
     };
-    // Save User in the database
     User.create(user)
         .then(data => {
             res.send(data);

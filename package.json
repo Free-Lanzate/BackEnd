@@ -24,6 +24,7 @@
     "nodemailer": "^6.7.5",
     "sequelize": "^6.19.0",
     "sequelize-lazy-migrations": "^1.0.4",
+    "shelljs": "^0.8.5",
     "uuidv4": "^6.2.13"
   },
   "devDependencies": {

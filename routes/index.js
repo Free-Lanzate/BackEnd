@@ -6,7 +6,7 @@ const orderDetailsController = require('../controllers/orderDetailsController')
 const forgotPasswordController = require('../controllers/forgotPasswordController')
 const FreelancerController = require('../controllers/freelancerController');
 const PostCategoryController = require('../controllers/postCategoryController');
-
+const ShoppingController = require('../controllers/shoppingController')
 module.exports = (app) => {
     var router = require("express").Router();
 
@@ -50,5 +50,9 @@ module.exports = (app) => {
     router.get("/freelancer/:id", FreelancerController.findFreelancerById);
     router.get("/freelancer/profile/:id", FreelancerController.profileInfoFreelancerById);
     //router.get("/freelancer/profile/:username", FreelancerController.profileInfoFreelancerByUsername);
+
+
+    //ShoppingSession routes
+    router.post("/shopping/addItem", ShoppingController.addItemToSession);
     app.use("/", router);
 };
