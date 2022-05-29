@@ -19,9 +19,9 @@ module.exports = (sequelize, DataTypes) => {
           onUpdate: 'CASCADE',
         }
       });
-      User.hasOne(models.ShoppingSession, {
+      /*User.hasOne(models.ShoppingSession, {
         foreignKey: 'userId'
-      })
+      })*/
     }
   }
   User.init({
@@ -87,7 +87,7 @@ module.exports = (sequelize, DataTypes) => {
   User.afterCreate('myHook', (user, options) => {
     console.log(user.id)
     const db = require('../models');
-    db.ShoppingSession.create({userId: user.id});
+    //db.ShoppingSession.create({userId: user.id});
   });
   return User;
 };

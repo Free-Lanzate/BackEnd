@@ -6,7 +6,7 @@ const orderDetailsController = require('../controllers/orderDetailsController')
 const forgotPasswordController = require('../controllers/forgotPasswordController')
 const FreelancerController = require('../controllers/freelancerController');
 const PostCategoryController = require('../controllers/postCategoryController');
-const ShoppingController = require('../controllers/shoppingController')
+/*const ShoppingController = require('../controllers/shoppingController')*/
 module.exports = (app) => {
     var router = require("express").Router();
 
@@ -53,6 +53,6 @@ module.exports = (app) => {
 
 
     //ShoppingSession routes
-    router.post("/shopping/addItem", ShoppingController.addItemToSession);
+    //router.post("/shopping/addItem", ShoppingController.addItemToSession);
     app.use("/", router);
 };

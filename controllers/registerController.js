@@ -14,6 +14,7 @@ exports.register = async (req, res) => {
         lastName: req.body.lastName,
         password: req.body.password,
         email: req.body.email,
+        location: req.body.location,
         isFreelancer: req.body.isFreelancer,
         avatarUrl: req.body.avatarUrl,
         createdAt: currentTime()

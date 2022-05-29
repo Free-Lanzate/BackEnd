@@ -14,12 +14,12 @@ module.exports = (sequelize, DataTypes) => {
               allowNull: false
             }
         });
-        Post.hasMany(models.CartItem,{
+        /*Post.hasMany(models.CartItem,{
           foreignKey: {
             name: 'postId',
             allowNull: false
           }
-        });
+        });*/
         Post.belongsTo(models.Freelancer);
     }
     static async getPostInfo(postId) {
