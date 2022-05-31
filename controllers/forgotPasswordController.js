@@ -25,24 +25,26 @@ exports.sendEmail = async (req,res) => {
         }
 
         const jwt = generateToken(user)
+        console.log(jwt)
         user.update({tokenResetPassword: jwt});
 
         const transporter = nodemailer.createTransport({
-            service:"gmail",
+            host: 'smtp.office365.com',
+            secureConnection: false,
             port: 587,
-            secure: false,
-            tls:{
-                rejectUnauthorized:false
+            starttls: {
+                ciphers:'SSLv3',
+                rejectUnauthorized: false
             },
             auth: {
-                user: `${process.env.EMAIL_ADDRESS}`,
-                pass: `${process.env.EMAIL_PASSWORD}`,
+                user: 'freelanzate@hotmail.com',
+                pass: 'MpcjDazbJcgmNrnJpbm5'
             }
         });
         const emailPort = 8000;
 
         const mailOptions = {
-            from: 'davidalexz2001@gmail.com',
+            from: 'freelanzate@hotmail.com',
             to: `${user.email}`,
             subject:'Enlace para recuperar contraseña para Freelánzate',
             text: `http://localhost:${emailPort}/resetpassword/${user.id}/${jwt}`
