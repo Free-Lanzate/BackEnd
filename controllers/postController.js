@@ -2,6 +2,21 @@ const db = require("../models");
 const Post = db.Post;
 const Op = db.Sequelize.Op;
 
+
+exports.findAll = (req, res) =>{
+    Post.findAll()
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving posts."
+            });
+        });
+};
+
+
 exports.create = (req, res) => {
     if (!req.body.postTitle) {
         res.status(400).send({

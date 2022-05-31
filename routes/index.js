@@ -12,39 +12,41 @@ module.exports = (app) => {
 
     // User routes
     router.get("/users", UserController.findAll);
-    router.get("/user/:id", UserController.findUserById)
-    router.post("/users/create", UserController.create)
-    router.get("/profile/:id", UserController.profileInfoById)
-    router.post("/user/:id/update", UserController.update)
+    router.get("/user/:id", UserController.findUserById);
+    router.post("/users/create", UserController.create);
+    router.get("/profile/:id", UserController.profileInfoById);
+    router.post("/user/:id/update", UserController.update);
 
     // PostCategory routes
-    router.get("/categories", PostCategoryController.getCategories)
+    router.get("/categories", PostCategoryController.getCategories);
 
     // Post routes
-    router.post('/post/create', PostController.create)
-    router.post('/post/:id/update', PostController.update)
-    router.post('/post/:id/delete', PostController.delete)
-    router.post('/post/:id', PostController.getPostInfo)
-    router.get("/post/:id/related", PostController.getRelatedPosts)
+    router.post('/post/create', PostController.create);
+    router.post('/post/:id/update', PostController.update);
+    router.post('/post/:id/delete', PostController.delete);
+    router.post('/post/:id', PostController.getPostInfo);
+    router.get("/post/:id/related", PostController.getRelatedPosts);
+    // Get all users
+    router.get('/post/getAll', PostController.findAll);
 
     //Register routes
-    router.post("/register", RegisterController.register)
-    router.post("/register/freelancer", RegisterController.registerFreelancer)
+    router.post("/register", RegisterController.register);
+    router.post("/register/freelancer", RegisterController.registerFreelancer);
 
     //Login routes
-    router.post("/login", LoginController.login)
-    router.get("/login", LoginController.home)
+    router.post("/login", LoginController.login);
+    router.get("/login", LoginController.home);
 
     //Order routes
-    router.get("/profile/:id/orders", orderDetailsController.findAllOrderedItemsByUser)
+    router.get("/profile/:id/orders", orderDetailsController.findAllOrderedItemsByUser);
     
     //Search route
     //Funciona como /search?keyword=algo
-    router.get("/search", PostController.searchPost)
+    router.get("/search", PostController.searchPost);
 
     //RecoveryPassword routes
-    router.post("/recoveryPassword", forgotPasswordController.sendEmail)
-    router.post("/resetPassword/:id/:tokenResetPassword", forgotPasswordController.resetPassword)
+    router.post("/recoveryPassword", forgotPasswordController.sendEmail);
+    router.post("/resetPassword/:id/:tokenResetPassword", forgotPasswordController.resetPassword);
     //Freelancer routes
     router.get("/freelancer", FreelancerController.findAllFreelancers);
     router.get("/freelancer/:id", FreelancerController.findFreelancerById);
