@@ -67,6 +67,13 @@ exports.sendEmail = async (req,res) => {
 }
 
 exports.resetPassword = async (req,res) => {
+    let regExPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&#_.,¡¿]{6,14}$/;
+    if (!regExPassword.test(req.body.password)){
+        res.send({
+            message: "La contraseña debe contener al menos entre 8 y 16 caracteres, un número, una letra minúscula, una letra mayúscula y un caracter especial"
+        });
+        return;
+    }
     try {
         req.body.password = await bcrypt.hash(req.body.password,10)
         User.update(req.body, {
