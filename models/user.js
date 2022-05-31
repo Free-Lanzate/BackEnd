@@ -77,7 +77,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: false
     },
     tokenResetPassword: {
-      type: DataTypes.STRING(700),
+      type: DataTypes.STRING(1000),
       allowNull: true
     }
   }, {

@@ -41,7 +41,17 @@ module.exports = {
       password: '$2a$10$jCg.1fe7OosJsgRNHx0QKe7c6tS6P/us85IdqzA2ZUlH6ldQ6vnnK',
       createdAt: new Date(),
       updatedAt: new Date()
-    }]);
+    },
+      {
+        username: "jubustamantem",
+        firstName: 'Juan',
+        lastName: 'Bustamante',
+        email: 'jubustamantem@unal.edu.co',
+        isFreelancer: false,
+        password: '$2a$10$jCg.1fe7OosJsgRNHx0QKe7c6tS6P/us85IdqzA2ZUlH6ldQ6vnnK',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }]);
   },
 
   async down (queryInterface, Sequelize) {

@@ -16,6 +16,7 @@ exports.register = async (req, res) => {
         email: req.body.email,
         isFreelancer: req.body.isFreelancer,
         avatarUrl: req.body.avatarUrl,
+        location: req.body.location,
         createdAt: currentTime()
     };
     bcrypt.hash(user.password, 10).then(async (hash) => {
