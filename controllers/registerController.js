@@ -19,6 +19,13 @@ exports.register = async (req, res) => {
         location: req.body.location,
         createdAt: currentTime()
     };
+    let regExPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&#_.,¡¿]{6,14}$/;
+    if (!regExPassword.test(user.password)){
+        res.send({
+            message: "La contraseña debe contener al menos entre 6 y 14 caracteres, un número, una letra minúscula y una letra mayúscula"
+        });
+        return;
+    }
     bcrypt.hash(user.password, 10).then(async (hash) => {
         user.password = hash;
         await User.create(user)
