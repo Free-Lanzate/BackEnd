@@ -19,6 +19,7 @@ module.exports = (app) => {
 
     // PostCategory routes
     router.get("/categories", PostCategoryController.getCategories);
+    router.get("/categories/:id", PostCategoryController.getPostsByCategory);
 
     // Post routes
     router.post('/post/create', PostController.create);

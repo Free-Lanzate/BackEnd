@@ -1,5 +1,6 @@
 const db = require("../models");
 const PostCategory = db.PostCategory
+const Post = db.Post
 
 /**
 * @param {req} request
@@ -21,3 +22,35 @@ exports.getCategories = (req, res) => {
         });
       });
   };
+
+  
+exports.getPostsByCategory = (req, res) => {
+  const categoryId = req.params.id
+  Post.findAll({
+      where: {
+          PostCategoryId: categoryId,
+      },
+      //Comentar este include si no quieren info sobre el freelancer
+      include: [{
+          model: db.Freelancer,
+          attributes: ['id'],
+          required: true,
+          include: {
+              model: db.User,
+              attributes: ['firstName', 'lastName']
+          }
+      }
+      
+      ]
+      // Comentar esto
+  })
+      .then(data => {
+          res.send(data);
+      })
+      .catch(err => {
+          res.status(500).send({
+              message:
+                  err.message || "Some error occurred while retrieving the posts."
+          });
+      });
+};
