@@ -8,7 +8,7 @@ const bcrypt = require("bcryptjs");
 require('dotenv').config();
 
 exports.sendEmail = async (req,res) => {
-    if (req.body.email == "") {
+    if (req.body.email === "") {
         res.status(400).send({
             message:"No se ha enviado el email"
         })
@@ -24,8 +24,10 @@ exports.sendEmail = async (req,res) => {
             })
         }
 
+        user.update({tokenResetPassword: null})
+
         const jwt = generateToken(user)
-        console.log(jwt)
+
         user.update({tokenResetPassword: jwt});
 
         const transporter = nodemailer.createTransport({
@@ -41,13 +43,19 @@ exports.sendEmail = async (req,res) => {
                 pass: 'MpcjDazbJcgmNrnJpbm5'
             }
         });
-        const emailPort = 8000;
+        const emailPort = 3000;
+        const fullName = user.firstName + " " + user.lastName
 
         const mailOptions = {
-            from: 'freelanzate@hotmail.com',
+            from: '💡 Free-Lánzate <freelanzate@hotmail.com>',
             to: `${user.email}`,
-            subject:'Enlace para recuperar contraseña para Freelánzate',
-            text: `http://localhost:${emailPort}/resetpassword/${user.id}/${jwt}`
+            subject:'Recupera tu contraseña en Free-Lánzate',
+            html: "<h2>Cordial Saludo, "+fullName+".</h2>" +
+                "<p>De acuerdo con tu actividad reciente, has indicado que olvidaste" +
+                " la contraseña de tu cuenta en Free-Lánzate.</p>"
+                + "<h3>Haz clic <a href="
+                +`http://localhost:${emailPort}/restablecer/${user.id}/${jwt}`
+                +">aquí</a> para restablecer tu contraseña ahora.</h3>",
         };
 
         transporter.sendMail(mailOptions, (err, response) => {
