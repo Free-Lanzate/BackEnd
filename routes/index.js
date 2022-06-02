@@ -45,7 +45,7 @@ module.exports = (app) => {
     router.get("/search", PostController.searchPost);
 
     //RecoveryPassword routes
-    router.post("/recoveryPassword", forgotPasswordController.sendEmail);
+    router.post("/recoveryPassword/:change", forgotPasswordController.sendEmail);
     router.post("/resetPassword/:id/:tokenResetPassword", forgotPasswordController.resetPassword);
     //Freelancer routes
     router.get("/freelancer", FreelancerController.findAllFreelancers);

@@ -45,17 +45,32 @@ exports.sendEmail = async (req,res) => {
         });
         const emailPort = 3000;
         const fullName = user.firstName + " " + user.lastName
+        let emailBody;
+        let emailSubject;
 
-        const mailOptions = {
-            from: '💡 Free-Lánzate <freelanzate@hotmail.com>',
-            to: `${user.email}`,
-            subject:'Recupera tu contraseña en Free-Lánzate',
-            html: "<h2>Cordial Saludo, "+fullName+".</h2>" +
+        if (req.params.change === 'true'){
+            emailBody = "<h2>Cordial Saludo, "+fullName+".</h2>" +
                 "<p>De acuerdo con tu actividad reciente, has indicado que olvidaste" +
                 " la contraseña de tu cuenta en Free-Lánzate.</p>"
                 + "<h3>Haz clic <a href="
                 +`http://localhost:${emailPort}/restablecer/${user.id}/${jwt}`
-                +">aquí</a> para restablecer tu contraseña ahora.</h3>",
+                +">aquí</a> para restablecer tu contraseña ahora.</h3>"
+            emailSubject = 'Recupera tu contraseña en Free-Lánzate';
+        }else{
+            emailBody = "<h2>Cordial Saludo, "+fullName+".</h2>" +
+                "<p>De acuerdo con tu actividad reciente, has indicado que deseas" +
+                " cambiar la contraseña de tu cuenta en Free-Lánzate.</p>"
+                + "<h3>Haz clic <a href="
+                +`http://localhost:${emailPort}/restablecer/${user.id}/${jwt}`
+                +">aquí</a> para cambiar tu contraseña ahora.</h3>";
+            emailSubject = 'Cambia tu contraseña en Free-Lánzate';
+        }
+
+        const mailOptions = {
+            from: '💡 Free-Lánzate <freelanzate@hotmail.com>',
+            to: `${user.email}`,
+            subject: emailSubject,
+            html: emailBody
         };
 
         transporter.sendMail(mailOptions, (err, response) => {
