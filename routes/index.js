@@ -41,9 +41,10 @@ module.exports = (app) => {
     //Order routes
     router.get("/profile/:id/orders", orderDetailsController.findAllOrderedItemsByUser);
     
-    //Search route
-    //Funciona como /search?keyword=algo
+    //Search routes
+    //Funcionan como /search?keyword=algo
     router.get("/search", PostController.searchPost);
+    router.get("/searchFreelancer", FreelancerController.searchFreelancer);
 
     //RecoveryPassword routes
     router.post("/recoveryPassword/:change", forgotPasswordController.sendEmail);
