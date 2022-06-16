@@ -23,7 +23,30 @@ module.exports = {
       phoneNumber: '3213249138',
       createdAt: new Date(),
       updatedAt: new Date()
-    }]);
+    },
+    {
+      UserId: 6,
+      freelancerRating: 4,
+      country: "Colombia",
+      city: "Cali",
+      postalCode: "254001",
+      address: "Cra 1#11",
+      phoneNumber: '3213249138',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      UserId: 7,
+      freelancerRating: 4,
+      country: "Colombia",
+      city: "Salento",
+      postalCode: "254001",
+      address: "Cra 1#11",
+      phoneNumber: '3213249138',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    ]);
   },
 
   async down (queryInterface, Sequelize) {
