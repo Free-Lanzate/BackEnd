@@ -1,6 +1,7 @@
 const db = require("../models");
 const orderItem = require("../models/orderItem");
 const post = require("../models/post");
+const User = db.User;
 const OrderDetails = db.OrderDetails;
 const Op = db.Sequelize.Op;
 
@@ -33,12 +34,17 @@ exports.create = (req, res) => {
 * @param {res} response
 * @returns {array} the list of Orders, with the information of the related jobs/items
 */
-exports.findAllOrderedItemsByUser = (req, res) => {
+exports.findAllOrderedItemsByUser = async (req, res) => {
+    let user = await User.findByPk(req.params.id)
+    let freelancerOrders = []
+    if (user.isFreelancer) {
+        freelancerOrders = await OrderDetails.findOrdersByFreelancer(req.params.id)
+    }
     OrderDetails.findAll({
         where:
-        {
-            id: req.params.id
-        },
+            {
+                userId: req.params.id
+            },
         include: [{
             model: db.OrderItem,
             attributes: ['PostId', 'createdAt'],
@@ -53,20 +59,22 @@ exports.findAllOrderedItemsByUser = (req, res) => {
                     required: true,
                     include: {
                         model: db.User,
-                        attributes: ['username','firstName', 'lastName'],
+                        attributes: ['username', 'firstName', 'lastName'],
                         required: true
                     }
                 }
             }
         }
-    ]})
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving the orders."
+        ]
+    })
+        .then(data => {
+            data.push(freelancerOrders)
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving the orders."
+            });
         });
-      });
-  };
+};

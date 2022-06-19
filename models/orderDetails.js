@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
             }
           });
     }
+    static async findOrdersByFreelancer(freelancerId) {
+      const [results, metadata] = await sequelize.query("select * from orderdetails join orderitems od on od.OrderDetailId = orderdetails.id join posts p on od.PostId = p.id join freelancers f on p.FreelancerId = f.id join users u on f.UserId = u.id where u.id = ?",{replacements:[freelancerId]});
+      return results;
+    }
   }
   OrderDetails.init({
     orderTotal: {

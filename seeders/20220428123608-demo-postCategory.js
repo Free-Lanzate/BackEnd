@@ -3,7 +3,7 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('PostCategories', [{
-      categoryName: "Programacion",
+      categoryName: "Programacion y tecnología",
       createdAt: new Date(),
       updatedAt: new Date()
     },
@@ -26,7 +26,22 @@ module.exports = {
       categoryName: "Traducción",
       createdAt: new Date(),
       updatedAt: new Date()
-    }
+    },
+    {
+      categoryName: "Limpieza",
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      categoryName: "Confección",
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      categoryName: "Otro",
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
   ]);
   },
 
