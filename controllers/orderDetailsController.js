@@ -35,11 +35,6 @@ exports.create = (req, res) => {
 * @returns {array} the list of Orders, with the information of the related jobs/items
 */
 exports.findAllOrderedItemsByUser = async (req, res) => {
-    let user = await User.findByPk(req.params.id)
-    let freelancerOrders = []
-    if (user.isFreelancer) {
-        freelancerOrders = await OrderDetails.findOrdersByFreelancer(req.params.id)
-    }
     OrderDetails.findAll({
         where:
             {
@@ -68,7 +63,6 @@ exports.findAllOrderedItemsByUser = async (req, res) => {
         ]
     })
         .then(data => {
-            data.push(freelancerOrders)
             res.send(data);
         })
         .catch(err => {
