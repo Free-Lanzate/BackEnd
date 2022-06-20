@@ -42,6 +42,7 @@ exports.create = (req, res) => {
     };
     User.create(user)
         .then(data => {
+            ShoppingSession({userId: data.id})
             res.send(data);
         })
         .catch(err => {

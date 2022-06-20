@@ -51,6 +51,7 @@ module.exports = (app) => {
     //RecoveryPassword routes
     router.post("/recoveryPassword/:change", forgotPasswordController.sendEmail);
     router.post("/resetPassword/:id/:tokenResetPassword", forgotPasswordController.resetPassword);
+
     //Freelancer routes
     router.get("/freelancer", FreelancerController.findAllFreelancers);
     router.get("/freelancer/:id", FreelancerController.findFreelancerById);
@@ -59,6 +60,10 @@ module.exports = (app) => {
 
     //ShoppingSession routes
     router.post("/shopping/addItem", ShoppingController.addItemToSession);
+    router.put("/shopping/changeQuantity", ShoppingController.changeItemQuantity);
+    router.post("/shopping/removeItem", ShoppingController.removeCartItem);
+    router.get("/shopping/getSessionId", ShoppingController.getShoppingIdByUser);
+    router.get("/shopping/getCartItems", ShoppingController.getShoppingSessionItems);
 
     //MyRecommendations routes
     router.get("/recommendations", RecommendationController.getRecommendations);
