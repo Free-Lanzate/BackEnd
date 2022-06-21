@@ -9,6 +9,7 @@ const PostCategoryController = require('../controllers/postCategoryController');
 const ShoppingController = require('../controllers/shoppingController');
 const RecommendationController = require("../controllers/recommendationController");
 const ReviewController = require("../controllers/reviewController");
+const MySalesController = require("../controllers/mySalesController");
 module.exports = (app) => {
     var router = require("express").Router();
 
@@ -98,6 +99,9 @@ module.exports = (app) => {
     router.get("/recommendations", RecommendationController.getRecommendations);
 
     //Reviews routes
-    router.post("/review/", ReviewController.addReview);
+    router.post("/review", ReviewController.addReview);
+
+    //Sales routes
+    router.get("/profile/:id/sales",MySalesController.findSalesByFreelancer)
     app.use("/", router);
 };
