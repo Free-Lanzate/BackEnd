@@ -10,6 +10,13 @@ module.exports = {
       updatedAt: new Date(),
     },
     {
+      OrderDetailId: 1,
+      PostId: 6,
+      itemAmount: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
       OrderDetailId: 2,
       PostId: 2,
       itemAmount: 2,

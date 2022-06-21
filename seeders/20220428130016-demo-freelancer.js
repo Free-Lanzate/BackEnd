@@ -4,7 +4,7 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('Freelancers', [{
       UserId: 1,
-      freelancerRating: 10,
+      freelancerRating: 5,
       country: "Colombia",
       city: "Zipaquira",
       postalCode: "254000",
