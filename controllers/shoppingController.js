@@ -108,14 +108,14 @@ const Op = db.Sequelize.Op;
 
 /**
  * 
- * Dado el id de un CartItem, se remueve su registro de la base de datos. Esto deberia ser suficiente para
+ * Dado el id (como parametro) de un CartItem, se remueve su registro de la base de datos. Esto deberia ser suficiente para
  * la funcionalidad de remover del carrito.
  *
  */
 
  exports.removeCartItem = async (req, res) => {
 
-    const cartItemId = req.body.cartItemId;
+    const cartItemId = req.params.cartItemId;
     
     const cartItem = await CartItem.findOne(
         {
@@ -145,7 +145,7 @@ const Op = db.Sequelize.Op;
 
  exports.getShoppingIdByUser = async (req, res) => {
 
-    const currentUserId = req.body.userId;
+    const currentUserId = req.param.userId;
 
     //Se busca la sesion del user
 
@@ -179,7 +179,7 @@ const Op = db.Sequelize.Op;
 
  exports.getShoppingSessionItems = async (req, res) => {
 
-    const currentUserId = req.body.userId;
+    const currentUserId = req.params.id;
 
     const userShoppingSession = await ShoppingSession.findOne(
         {

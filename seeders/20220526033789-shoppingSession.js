@@ -6,7 +6,7 @@ module.exports = {
             quantity: 1,
             createdAt: new Date(),
             updatedAt: new Date(),
-            sessionId: 5,
+            sessionId: 1,
             postId:14
         },
         {
@@ -20,14 +20,35 @@ module.exports = {
             quantity: 4,
             createdAt: new Date(),
             updatedAt: new Date(),
-            sessionId: 5,
+            sessionId: 1,
             postId:10
+        },
+        {
+            quantity: 1,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            sessionId: 1,
+            postId:14
+        },
+        {
+            quantity: 1,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            sessionId: 2,
+            postId:15
         },
         {
             quantity: 2,
             createdAt: new Date(),
             updatedAt: new Date(),
-            sessionId: 9,
+            sessionId: 2,
+            postId:10
+        },
+        {
+            quantity: 1,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            sessionId: 2,
             postId:11
         },
         {

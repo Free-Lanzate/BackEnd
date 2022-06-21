@@ -56,14 +56,43 @@ module.exports = (app) => {
     router.get("/freelancer", FreelancerController.findAllFreelancers);
     router.get("/freelancer/:id", FreelancerController.findFreelancerById);
     router.get("/freelancer/profile/:id", FreelancerController.profileInfoFreelancerById);
+
     //router.get("/freelancer/profile/:username", FreelancerController.profileInfoFreelancerByUsername);
 
     //ShoppingSession routes
+
+
+    /**
+     * Recibe el id del usuario y el id del anuncio en un body.
+     * {"userId": 5, "postId": 2 }
+     */
     router.post("/shopping/addItem", ShoppingController.addItemToSession);
-    router.put("/shopping/changeQuantity", ShoppingController.changeItemQuantity);
-    router.post("/shopping/removeItem", ShoppingController.removeCartItem);
-    router.get("/shopping/getSessionId", ShoppingController.getShoppingIdByUser);
-    router.get("/shopping/getCartItems", ShoppingController.getShoppingSessionItems);
+
+    /**
+     * Recibe el id del item y la nueva cantidad en un body, pero lo podria cambiar si lo prefieren de otra forma
+     * /shopping/addItem {"cartItemId":  "21","newQuantity": "5" }
+     */
+    router.post("/shopping/changeQuantity", ShoppingController.changeItemQuantity);
+
+    /**
+     * Dado  el id de un producto, lo elimina directamente de la base de datos.
+     * Ejemplo /shopping/removeItem/20
+     */
+    router.post("/shopping/removeItem/:cartItemId", ShoppingController.removeCartItem);
+
+    /**
+     * Recibe la id del usuario como parametro y devuelve la sesion del usuario. Mas que nada una ruta de utilidad que quizas
+     * sea necesaria para probar algo en el futuro.
+     * Ejemplo /shopping/getSessionId/1
+     */
+    router.get("/shopping/getSessionId/:userId", ShoppingController.getShoppingIdByUser);
+
+    /**
+     * Recibe la id del usuario como parametro, devuelve la lista de elementos en su carrito
+     * Ejemplo /shopping/getCartItems/1
+     */
+    
+    router.get("/shopping/getCartItems/:id", ShoppingController.getShoppingSessionItems);
 
     //MyRecommendations routes
     router.get("/recommendations", RecommendationController.getRecommendations);
