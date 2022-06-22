@@ -76,10 +76,10 @@ module.exports = (app) => {
     router.post("/shopping/changeQuantity", ShoppingController.changeItemQuantity);
 
     /**
-     * Dado  el id de un producto, lo elimina directamente de la base de datos.
-     * Ejemplo /shopping/removeItem/20
+     * Dado  el id de un Usiario y de un  Anuncio (Eso es, su postId), lo elimina directamente de la base de datos.
+     * Ejemplo /shopping/removeItem/1/20 (usuario 1, post 20)
      */
-    router.post("/shopping/removeItem/:cartItemId", ShoppingController.removeCartItem);
+    router.post("/shopping/removeItem/:userId/:postId", ShoppingController.removeCartItem);
 
     /**
      * Recibe la id del usuario como parametro y devuelve la sesion del usuario. Mas que nada una ruta de utilidad que quizas

@@ -108,32 +108,53 @@ const Op = db.Sequelize.Op;
 
 /**
  * 
- * Dado el id (como parametro) de un CartItem, se remueve su registro de la base de datos. Esto deberia ser suficiente para
+ * Dado el id (como parametro) de un usuario y la id del Post, ya anadido al carrito (Osea, ya instanciada una
+ * fila de CartItem), 
+ * se remueve su registro de la base de datos (De cartItems). Esto deberia ser suficiente para
  * la funcionalidad de remover del carrito.
  *
  */
 
  exports.removeCartItem = async (req, res) => {
 
-    const cartItemId = req.params.cartItemId;
+    const selectedPostId = req.params.postId;
+    const currentUserId = req.params.userId;
+
+    const currentSession = await ShoppingSession.findOne(
+        {
+            where: {
+                userId: currentUserId
+            }
+        }
+    );
+
+    const currentSessionId = currentSession.id
     
     const cartItem = await CartItem.findOne(
         {
             where: {
-                id: cartItemId
+                postId: selectedPostId,
+                sessionId: currentSessionId
             }
         }
     );
-    await cartItem.destroy().then(
-        data => {
-            res.send(data);
-        })
-            .catch(err => {
-                res.status(400).send({
-                    message:
-                        err.message || "Some error occurred while modifying the item quantity."
+     
+    if (cartItem != null) {
+        await cartItem.destroy().then(
+            data => {
+                res.send(data);
+            })
+                .catch(err => {
+                    res.status(400).send({
+                        message:
+                            err.message || "Some error occurred while modifying the item quantity."
+                    });
                 });
-            });
+    } else {
+        res.status(400).send({
+            message: "The cart item does not exist"
+        });
+    }
 }
 
 /**
