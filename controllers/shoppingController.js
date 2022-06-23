@@ -1,6 +1,8 @@
 const db = require("../models");
 const ShoppingSession = db.ShoppingSession
 const CartItem = db.CartItem
+const OrderItem = db.OrderItem
+const OrderDetails = db.OrderDetails
 
 const Op = db.Sequelize.Op;
 
@@ -33,7 +35,7 @@ const Op = db.Sequelize.Op;
  */
 
 
- exports.addItemToSession = async (req, res) => {
+exports.addItemToSession = async (req, res) => {
 
     const currentUserId = req.body.userId;
     const currentPostId = req.body.postId;
@@ -49,7 +51,7 @@ const Op = db.Sequelize.Op;
     );
 
     const sessionId = userShoppingSession.id
-    
+
     //Se crea el item de carrito y se anada a la sesion
 
     CartItem.create(
@@ -80,7 +82,7 @@ const Op = db.Sequelize.Op;
  *
  */
 
- exports.changeItemQuantity = async (req, res) => {
+exports.changeItemQuantity = async (req, res) => {
 
     const cartItemId = req.body.cartItemId;
     const newQuantity = req.body.newQuantity;
@@ -98,12 +100,12 @@ const Op = db.Sequelize.Op;
         data => {
             res.send(data);
         })
-            .catch(err => {
-                res.status(400).send({
-                    message:
-                        err.message || "Some error occurred while modifying the item quantity."
-                });
+        .catch(err => {
+            res.status(400).send({
+                message:
+                    err.message || "Some error occurred while modifying the item quantity."
             });
+        });
 }
 
 /**
@@ -115,7 +117,7 @@ const Op = db.Sequelize.Op;
  *
  */
 
- exports.removeCartItem = async (req, res) => {
+exports.removeCartItem = async (req, res) => {
 
     const selectedPostId = req.params.postId;
     const currentUserId = req.params.userId;
@@ -129,7 +131,7 @@ const Op = db.Sequelize.Op;
     );
 
     const currentSessionId = currentSession.id
-    
+
     const cartItem = await CartItem.findOne(
         {
             where: {
@@ -138,18 +140,18 @@ const Op = db.Sequelize.Op;
             }
         }
     );
-     
+
     if (cartItem != null) {
         await cartItem.destroy().then(
             data => {
                 res.send(data);
             })
-                .catch(err => {
-                    res.status(400).send({
-                        message:
-                            err.message || "Some error occurred while modifying the item quantity."
-                    });
+            .catch(err => {
+                res.status(400).send({
+                    message:
+                        err.message || "Some error occurred while modifying the item quantity."
                 });
+            });
     } else {
         res.status(400).send({
             message: "The cart item does not exist"
@@ -164,7 +166,7 @@ const Op = db.Sequelize.Op;
  * 
  */
 
- exports.getShoppingIdByUser = async (req, res) => {
+exports.getShoppingIdByUser = async (req, res) => {
 
     const currentUserId = req.param.userId;
 
@@ -181,15 +183,15 @@ const Op = db.Sequelize.Op;
             //Envio todo, pero la sesionId esta en data.userId
             res.send(data);
         })
-            .catch(err => {
-                res.status(400).send({
-                    message:
-                        err.message || "Some error occurred while getting the shopping session."
-                });
+        .catch(err => {
+            res.status(400).send({
+                message:
+                    err.message || "Some error occurred while getting the shopping session."
             });
+        });
 
 
- }
+}
 
 
 /**
@@ -198,7 +200,7 @@ const Op = db.Sequelize.Op;
  * se haria en la parte de front.
  */
 
- exports.getShoppingSessionItems = async (req, res) => {
+exports.getShoppingSessionItems = async (req, res) => {
 
     const currentUserId = req.params.id;
 
@@ -213,7 +215,7 @@ const Op = db.Sequelize.Op;
     await CartItem.findAll({
         where: {
             sessionId: userShoppingSession.id
-        },     
+        },
         include: [{
             model: db.Post,
             attributes: ['postTitle', 'postPrice'],
@@ -232,17 +234,78 @@ const Op = db.Sequelize.Op;
         ]
     }).then(data => {
         res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving the cartItems."
+    })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving the cartItems."
+            });
         });
-      });
 
- 
+
 }
 
+/**
+ * La funcion toma una sesion de carrito y sus items y los convierte en una orden historica. Luego limpia la sesion, eso es,
+ * elimina los items asociados a ella.
+ * 
+ * Recibe el Id del usuario como parametro
+ */
+
+exports.endShoppingSession = async (req, res) => {
+
+    currentUserId = req.params.id
+
+    const userShoppingSession = await ShoppingSession.findOne(
+        {
+            where: {
+                userId: currentUserId
+            }
+        }
+    );
+
+    await CartItem.findAll({
+        where: {
+            sessionId: userShoppingSession.id
+        },
+        include:{
+            model: db.Post,
+            attributes: ['postPrice'],
+            required: true,
+        }
+    }).then(
+        async cartItemList => {
+            const orderDetails = await OrderDetails.create({ UserId: userShoppingSession.userId, orderTotal: userShoppingSession.total})
+            // orderTotal = 0 //quizas lo use luego para calcular total, depende de como se haga
+            for (cartItem of cartItemList) {
+                await OrderItem.create(
+                    {
+                    itemAmount: cartItem.quantity, 
+                    itemPrice: cartItem.Post.postPrice, 
+                    PostId: cartItem.postId, 
+                    OrderDetailId: orderDetails.id
+                    }
+                )
+            }
+            /* Limpiar el carro */
+            CartItem.destroy({
+                where:{
+                    sessionId: userShoppingSession.id
+                }
+            })
+            userShoppingSession.total = 0
+            await userShoppingSession.save();
+
+        res.send(cartItemList);
+    }).catch(err => {
+            res.status(500).send(
+                {
+                    message: err.message || "Some error occurred while creating the orderDetails."
+                }
+            );
+        });
+
+}
 
 
 /**

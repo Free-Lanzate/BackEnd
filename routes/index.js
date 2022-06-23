@@ -95,6 +95,14 @@ module.exports = (app) => {
     
     router.get("/shopping/getCartItems/:id", ShoppingController.getShoppingSessionItems);
 
+    /**
+     * Finalizar orden.
+     * Recibe la id del usuario como parametro. Borra los items del carrito del usuario, setea el total a 0, crea una orden
+     * y los items ordenados para que dejen reviews y tales.
+     */
+
+    router.get("/shopping/endShoppingSession/:id", ShoppingController.endShoppingSession);
+
     //MyRecommendations routes
     router.get("/recommendations", RecommendationController.getRecommendations);
 
