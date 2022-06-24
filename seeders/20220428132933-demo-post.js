@@ -4,6 +4,7 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     // Uno tiene la palabra programacion, luego veo con tilde, en el titulo, otra en la descripcion. Para testear algo de busqueda.
     return queryInterface.bulkInsert('Posts', [{
+      id:1,
       postTitle: "Programacion en Java y Python",
       FreelancerId: 1,
       postDescription: "Una descripcion de todos los tutoriales de youtube que he visto",
@@ -15,6 +16,7 @@ module.exports = {
       updatedAt: new Date()
     }, 
     {
+      id:2,
       postTitle: "Programo en Golang y Scala",
       FreelancerId: 2,
       postDescription: "Una descripcion de todos los tutoriales de programacion de youtube que he visto",
@@ -26,6 +28,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:3,
       postTitle: "Programador de Aplicaciones moviles",
       FreelancerId: 2,
       postDescription: "Una descripcion",
@@ -37,6 +40,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:4,
       postTitle: "Posters de cualquier tamaño",
       FreelancerId: 7,
       postDescription: "De todo tamaño y forma",
@@ -48,6 +52,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:5,
       postTitle: "Traducción al inglés",
       FreelancerId: 3,
       postDescription: "Traducción de textos e imágenes",
@@ -59,6 +64,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:6,
       postTitle: "Edición de video profesional",
       FreelancerId: 4,
       postDescription: "Edito video en Movie Maker",
@@ -70,6 +76,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:7,
       postTitle: "Parranda vallenata",
       FreelancerId: 4,
       postDescription: "Parranda vallenata y otros géneros",
@@ -81,6 +88,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:8,
       postTitle: "Clase de salsa",
       FreelancerId: 1,
       postDescription: "Clases de salsa para todas las edades",
@@ -92,6 +100,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:9,
       postTitle: "Limpieza de autos",
       FreelancerId: 7,
       postDescription: "Limpieza de todo tipo de autos a domicilio. Calidad Garantizada",
@@ -103,6 +112,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:10,
       postTitle: "Traducción al español",
       FreelancerId: 3,
       postDescription: "Traducción profesional de documentos en inglés, francés o alemán al español",
@@ -114,6 +124,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:11,
       postTitle: "Producción de comerciales",
       FreelancerId: 7,
       postDescription: "Grabación y edición de comerciales para todos los productos",
@@ -125,6 +136,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:12,
       postTitle: "Servicio de contaduría",
       FreelancerId: 3,
       postDescription: "Todos los servicios de contaduría en un solo lugar",
@@ -136,6 +148,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:13,
       postTitle: "Confección de camisas y camisetas",
       FreelancerId: 5,
       postDescription: "Confecciones de camisas y camisetas de todos los estilos, tallas y colores",
@@ -147,6 +160,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:14,
       postTitle: "Contrucción de muebles de madera",
       FreelancerId: 6,
       postDescription: "Se construyen todo tipo de muebles de madera",
@@ -158,6 +172,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:15,
       postTitle: "Preparación de comida para eventos",
       FreelancerId: 8,
       postDescription: "Preparación de comida para toda clase de eventos",
@@ -169,6 +184,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:16,
       postTitle: "Arreglo de televisores y computadores",
       FreelancerId: 3,
       postDescription: "Reparación profesional de televisores de pantalla plana y computadores portátiles. Calidad garantizada",
@@ -180,6 +196,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:17,
       postTitle: "Publicidad para negocios",
       FreelancerId: 7,
       postDescription: "Publicidad para avisos de negocios",
@@ -191,6 +208,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:18,
       postTitle: "Arreglo de celulares",
       FreelancerId: 3,
       postDescription: "Arreglo de celulares de todas las marcas",
@@ -202,6 +220,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:19,
       postTitle: "Maestro de obra",
       FreelancerId: 9,
       postDescription: "Mestro de obra en arreglo de casas y apartamentos con experiencia",
@@ -213,6 +232,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:20,
       postTitle: "Clase de bordado a mano",
       FreelancerId: 1,
       postDescription: "Clases de bordado de sacos para todas las edades",

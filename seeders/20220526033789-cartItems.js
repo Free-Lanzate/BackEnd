@@ -3,6 +3,7 @@
 module.exports = {
     async up (queryInterface, Sequelize) {
         return queryInterface.bulkInsert('CartItems', [{
+            id:1,
             quantity: 1,
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -10,6 +11,7 @@ module.exports = {
             postId:14
         },
         {
+            id:2,
             quantity: 2,
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -17,6 +19,7 @@ module.exports = {
             postId:15
         },
         {
+            id:3,
             quantity: 4,
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -24,6 +27,7 @@ module.exports = {
             postId:10
         },
         {
+            id:4,
             quantity: 1,
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -31,6 +35,7 @@ module.exports = {
             postId:14
         },
         {
+            id:5,
             quantity: 1,
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -38,6 +43,7 @@ module.exports = {
             postId:15
         },
         {
+            id:6,
             quantity: 2,
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -45,6 +51,7 @@ module.exports = {
             postId:10
         },
         {
+            id:7,
             quantity: 1,
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -52,6 +59,7 @@ module.exports = {
             postId:11
         },
         {
+            id:8,
             quantity: 15,
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -59,6 +67,7 @@ module.exports = {
             postId:4
         },
         {
+            id:9,
             quantity: 1,
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -66,6 +75,7 @@ module.exports = {
             postId:7
         },
         {
+            id:10,
             quantity: 5,
             createdAt: new Date(),
             updatedAt: new Date(),

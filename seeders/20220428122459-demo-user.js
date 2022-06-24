@@ -3,6 +3,7 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('Users', [{
+      id:1,
       username: "cgarcia",
       firstName: 'Camilo',
       lastName: 'Garcia',
@@ -13,6 +14,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:2,
       username: "ymccartney",
       firstName: 'Yazmin',
       lastName: 'Mccartney',
@@ -23,6 +25,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:3,
       username: "ngalindo",
       firstName: 'Noemi',
       lastName: 'Galindo',
@@ -33,6 +36,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:4,
       username: "dzambranob",
       firstName: 'David',
       lastName: 'Zambrano',
@@ -43,6 +47,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:5,
       username: "jubustamantem",
       firstName: 'Juan',
       lastName: 'Bustamante',
@@ -53,6 +58,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:6,
       username: "jmrodriguez",
       firstName: 'John Milton',
       lastName: 'Rodriguez',
@@ -63,6 +69,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:7,
       username: "acherandez",
       firstName: 'Andrés Camilo',
       lastName: 'Hernández',
@@ -73,6 +80,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:8,
       username: "jvalvuena",
       firstName: 'Jesús',
       lastName: 'Valvuena',
@@ -83,6 +91,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:9,
       username: "eamaya",
       firstName: 'Eutimio',
       lastName: 'Amaya',
@@ -93,6 +102,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:10,
       username: "mcontreras",
       firstName: 'Marcos',
       lastName: 'Contreras',
@@ -103,6 +113,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:11,
       username: "adominguez",
       firstName: 'Antonio',
       lastName: 'Dominguez',
@@ -113,6 +124,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:12,
       username: "tcastro",
       firstName: 'Tatiana',
       lastName: 'Castro',
@@ -123,6 +135,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:13,
       username: "aorozco",
       firstName: 'Alex',
       lastName: 'Orozco',
@@ -133,6 +146,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:14,
       username: "jmcanas",
       firstName: 'Juan Manuel',
       lastName: 'Cañas',
@@ -143,6 +157,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:15,
       username: "mjsalgado",
       firstName: 'María José',
       lastName: 'Salgado',

@@ -3,6 +3,7 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('Freelancers', [{
+      id:1,
       UserId: 1,
       freelancerRating: 5,
       country: "Colombia",
@@ -14,6 +15,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:2,
       UserId: 2,
       freelancerRating: 5,
       country: "Colombia",
@@ -25,6 +27,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:3,
       UserId: 4,
       freelancerRating: 4,
       country: "Colombia",
@@ -36,6 +39,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:4,
       UserId: 6,
       freelancerRating: 4,
       country: "Colombia",
@@ -47,6 +51,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:5,
       UserId: 7,
       freelancerRating: 4,
       country: "Colombia",
@@ -58,6 +63,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:6,
       UserId: 10,
       freelancerRating: 3,
       country: "España",
@@ -69,6 +75,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:7,
       UserId: 12,
       freelancerRating: 5,
       country: "Colombia",
@@ -80,6 +87,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:8,
       UserId: 13,
       freelancerRating: 4,
       country: "Colombia",
@@ -91,6 +99,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
+      id:9,
       UserId: 14,
       freelancerRating: 4,
       country: "Colombia",
