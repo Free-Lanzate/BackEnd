@@ -313,6 +313,5 @@ exports.endShoppingSession = async (req, res) => {
  * Por hacer:
  * - Resolver el tema de calcular totales de carrito.
  * - Permitir que un usuario solo anada una instancia de post al carrito, si ya existe, que no haga nada o, que cambie la cantidad de ese item
- * - Una vez que se termine el proceso de pago, pasar los items a una orden y limpiar el carrito.
  * - Conectar el proceso de pago con alguna pasarela de pago.
  */
