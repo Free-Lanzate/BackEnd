@@ -130,6 +130,14 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date(),
     },
+    {
+      id:17,
+      OrderDetailId: 5,
+      PostId: 1,
+      itemAmount: 2,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
     ]);
   },
 

@@ -113,6 +113,8 @@ module.exports = (app) => {
     router.post("/review/update/:id", ReviewController.update);
     router.post('/review/delete/:id', ReviewController.delete);
     router.get('/review/:userId/:orderItemId', ReviewController.getReviewByUser);
+    router.get('/freelancer/getReviews/:freelancerId', ReviewController.getRatingsByFreelancer) //Utilidad, trae solo los ratings dados a los productos de un freelancer
+    router.get('/freelancer/getByReview/:reviewId', ReviewController.getFreelancerByReview)
 
     //Sales routes
     router.get("/profile/:id/sales",MySalesController.findSalesByFreelancer)
@@ -124,4 +126,11 @@ module.exports = (app) => {
     // ejemplo imagen.jpg en el body {"thumbnailUrl": "imagen.jpg"}
     // Deberia poder abrir http://localhost:8000/images/test.gif, que fue subida por controlador
     router.post('/post/:id/addImage', PostController.addImageToPost)
+
+    router.post('/image/profileUpload', UserController.fileUpload, UserController.uploadImage)
+
+    // Recibe el id del user y el nombre de la imagen
+    // ejemplo imagen.jpg en el body {"thumbnailUrl": "imagen.jpg"}
+    // Deberia poder abrir http://localhost:8000/images/test.gif, que fue subida por controlador
+    router.post('/user/:id/addImage', UserController.addImageToUser)
 };

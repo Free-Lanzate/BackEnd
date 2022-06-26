@@ -200,6 +200,15 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date(),
     },
+    {
+      id:23,
+      reviewContent: "Muy buen servicio",
+      reviewRating: 4,
+      OrderItemId: 17,
+      UserId: 10,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
     ]);
   },
 

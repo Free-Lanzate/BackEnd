@@ -4,7 +4,7 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Review extends Model {
     static associate(models) {
-      console.log()
+      Review.belongsTo(models.OrderItem)
     }
   }
   Review.init({

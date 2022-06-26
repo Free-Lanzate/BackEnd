@@ -5,9 +5,6 @@ const db = require('./models/index')
 const cors = require('cors')
 const control = require('./controllers/userController')
 var shell = require("shelljs");
-
-
-
 // Update database function
 async function updateDatabase() {
      await db.sequelize.sync({ force: true });

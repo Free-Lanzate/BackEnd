@@ -1,7 +1,129 @@
 const db = require("../models");
 const Review = db.Review;
+const Freelancer = db.Freelancer;
 const Op = db.Sequelize.Op;
 
+//No funciona aun
+exports.getFreelancerByReview = async (req, res) => {
+
+    const reviewId = req.params.reviewId
+    const freelancer = await Freelancer.findOne({
+            where: {
+                '$Posts.OrderItems.Reviews.id$': reviewId
+            },
+            attributes: ['id'],
+            include: {
+                model: db.Post,
+                attributes: ['id'],
+                required: true,
+                as: 'Posts', 
+                include: {
+                    model: db.OrderItem,
+                    required: true,
+                    attributes: [],
+                    as: 'OrderItems',
+                    include: {
+                        model: db.Review,
+                        required: true,
+                        attributes: [],
+                        as: 'Reviews',
+                    }
+                } 
+            },
+        }, 
+    ).then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message:
+                err.message || "Some error occurred while creating the Review."
+        });
+    });
+    //res.send(review.freelancerId)
+}
+
+//Funciona pero no es util pues desde el front o desde el back hay que pasarle el id del freelancer
+async function setAverageRating(freelancerId){
+    
+    total = 0
+    await Review.findAll(
+        {
+            where: {
+                '$OrderItem.Post.FreelancerId$': freelancerId
+            },
+            attributes: ['id', 'reviewRating'],
+            include: {
+                model: db.OrderItem,
+                attributes: [],
+                required: true,
+                as: 'OrderItem',
+                include: {
+                    model: db.Post,
+                    required: true,
+                    attributes: [],
+                    as: 'Post'
+                }
+            },
+        }, 
+    ).then(async data => {
+        for (item of data){
+            total += item.reviewRating/data.length
+        }
+        const freelancer = await Freelancer.findOne(
+            {
+                where: {
+                    id: freelancerId
+                }
+            }
+        )
+        freelancer.freelancerRating = Math.round(total)
+        await freelancer.save()
+    })
+    .catch(err => {
+         console.log("Some error occurred while retrieving the reviews.")
+        });
+}
+
+//Funciona y tiene ruta
+exports.getRatingsByFreelancer = async (req, res) => {
+
+    const freelancerId = req.params.freelancerId
+    console.log("calculado con funcion" + await setAverageRating(freelancerId))
+    total = 0
+    const ratingList =Review.findAll(
+        {
+            where: {
+                '$OrderItem.Post.FreelancerId$': freelancerId
+            },
+            attributes: ['id', 'reviewRating'],
+            include: {
+                model: db.OrderItem,
+                attributes: [],
+                required: true,
+                as: 'OrderItem',
+                include: {
+                    model: db.Post,
+                    required: true,
+                    attributes: [],
+                    as: 'Post'
+                }
+            },
+        }, 
+    ).then(data => {
+        for (item of data){
+            total += item.reviewRating/data.length
+        }
+        res.send(JSON.stringify({averageRating : total}))
+    })
+    .catch(err => {
+        res.status(500).send({
+            message:
+                err.message || "Some error occurred while retrieving the reviews."
+        });
+    });
+
+}
 
 exports.addReview = async (req, res) =>{
     if (!req.body.reviewContent){
