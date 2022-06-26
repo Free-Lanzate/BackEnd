@@ -58,6 +58,7 @@ module.exports = (app) => {
     router.get("/freelancer", FreelancerController.findAllFreelancers);
     router.get("/freelancer/:id", FreelancerController.findFreelancerById);
     router.get("/freelancer/profile/:id", FreelancerController.profileInfoFreelancerById);
+    router.get("/freelancer/post/:id", FreelancerController.getPostsByFreelancer);
 
     //router.get("/freelancer/profile/:username", FreelancerController.profileInfoFreelancerByUsername);
 

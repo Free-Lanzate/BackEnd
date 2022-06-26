@@ -119,6 +119,24 @@ exports.searchFreelancer = (req, res) => {
             });
           });
 };
+exports.getPostsByFreelancer = (req,res) => {
+    const idFreelancer = req.params.id
+    Freelancer.getPosts(idFreelancer)
+        .then(data => {
+            if (data) {
+                res.send(data);
+            } else {
+                res.status(404).send({
+                    message: `Cannot find posts associated with Freelancer with id=${idFreelancer}.`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error finding posts associated with Freelancer with id=" + idFreelancer
+            })
+        });
+}
 /*exports.profileInfoFreelancerByUsername = (req, res) => {
     const usernameFreelancer = req.params.username;
     Freelancer.profileInfoFreelancerByUsername(usernameFreelancer)
