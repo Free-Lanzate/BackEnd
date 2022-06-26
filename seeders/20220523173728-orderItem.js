@@ -5,7 +5,7 @@ module.exports = {
     return queryInterface.bulkInsert('OrderItems', [{
       id:1,
       OrderDetailId: 1,
-      PostId: 1,
+      PostId: 5,
       itemAmount: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
