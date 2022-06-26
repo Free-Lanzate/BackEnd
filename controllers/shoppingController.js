@@ -20,6 +20,30 @@ const Op = db.Sequelize.Op;
  */
 
 
+ async function calculateCartTotal(shoppingSessionId){
+
+    total = 0
+
+    const cartItemList = await CartItem.findAll(
+        {
+            where: {
+                sessionId: shoppingSessionId
+            },
+            include: {
+                model: db.Post,
+                attributes: ['postPrice']
+            }
+        },   
+    );
+
+    for (item of cartItemList){
+        total += item.quantity * item.Post.postPrice
+    }
+
+    return total;
+}
+
+
 /**
  * 
  * Supongamos que en frontend se quiere anadir un item al carrito.
@@ -33,7 +57,6 @@ const Op = db.Sequelize.Op;
  * item de carrito (que tiene la propiedad de cantidad) y le anade la fk de la shoppingSession.
  * 
  */
-
 
 exports.addItemToSession = async (req, res) => {
 
@@ -60,8 +83,9 @@ exports.addItemToSession = async (req, res) => {
             sessionId: sessionId,
             postId: currentPostId
         }
-    ).then(data => {
-        //Retornada el id del cartItem en data.id
+    ).then(async data => {
+        userShoppingSession.total = await calculateCartTotal(userShoppingSession.id);
+        await userShoppingSession.save();
         res.send(data);
     })
         .catch(err => {
@@ -87,6 +111,7 @@ exports.changeItemQuantity = async (req, res) => {
     const cartItemId = req.body.cartItemId;
     const newQuantity = req.body.newQuantity;
 
+    
     const cartItem = await CartItem.findOne(
         {
             where: {
@@ -95,9 +120,20 @@ exports.changeItemQuantity = async (req, res) => {
         }
     );
 
+    const userShoppingSession = await ShoppingSession.findOne(
+        {
+            where: {
+                id: cartItem.sessionId
+            }
+        }
+    );
+
     cartItem.quantity = newQuantity;
+
     await cartItem.save().then(
-        data => {
+        async data => {
+            userShoppingSession.total = await calculateCartTotal(cartItem.sessionId);
+            await userShoppingSession.save();
             res.send(data);
         })
         .catch(err => {
@@ -143,7 +179,9 @@ exports.removeCartItem = async (req, res) => {
 
     if (cartItem != null) {
         await cartItem.destroy().then(
-            data => {
+            async data => {
+                currentSession.total = await calculateCartTotal(cartItem.sessionId);
+                await currentSession.save();
                 res.send(data);
             })
             .catch(err => {
@@ -168,11 +206,11 @@ exports.removeCartItem = async (req, res) => {
 
 exports.getShoppingIdByUser = async (req, res) => {
 
-    const currentUserId = req.param.userId;
+    const currentUserId = req.params.userId;
 
     //Se busca la sesion del user
 
-    ShoppingSession.findOne(
+    await ShoppingSession.findOne(
         {
             where: {
                 userId: currentUserId
@@ -313,6 +351,5 @@ exports.endShoppingSession = async (req, res) => {
  * Por hacer:
  * - Resolver el tema de calcular totales de carrito.
  * - Permitir que un usuario solo anada una instancia de post al carrito, si ya existe, que no haga nada o, que cambie la cantidad de ese item
- * - Una vez que se termine el proceso de pago, pasar los items a una orden y limpiar el carrito.
  * - Conectar el proceso de pago con alguna pasarela de pago.
  */

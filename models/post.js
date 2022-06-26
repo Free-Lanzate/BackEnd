@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         Post.belongsTo(models.Freelancer);
     }
     static async getPostInfo(postId) {
-        const [results, metadata] = await sequelize.query("select * from posts join freelancers f on posts.FreelancerId = f.id join users u on f.UserId = u.id join orderItems o on o.PostId = posts.id left join reviews r on o.id = r.OrderItemId where posts.id = ?",{replacements:[postId]});
+        const [results, metadata] = await sequelize.query("select * from posts join freelancers f on posts.FreelancerId = f.id join users u on f.UserId = u.id left join orderItems o on o.PostId = posts.id left join reviews r on o.id = r.OrderItemId left join (select id, firstName as fn from users) us on r.UserId = us.id where posts.id = ?",{replacements:[postId]});
         return results;
     }
     static async getIdFromPriority(priority) {

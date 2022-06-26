@@ -73,3 +73,31 @@ exports.delete = (req, res) => {
             });
         });
 };
+
+exports.getReviewByUser = async (req, res) => {
+    const reviewerId = req.params.userId;
+    const orderId = req.params.orderId;
+
+    await Review.findAll({
+        where: {
+            OrderItemId: orderId,
+            UserId: reviewerId
+        }/*,
+        include: [{
+            model: db.Post,
+            attributes: ['postTitle', 'postPrice'],
+            required: true,
+        }
+        ]*/
+    }).then(data => {
+        res.send(data);
+    })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving the review."
+            });
+        });
+
+
+}

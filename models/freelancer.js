@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       return results;
     }
     static async profileInfoFreelancerById(idFreelancer) {
-      const [results, metadata] = await sequelize.query("select * from freelancers join users u on freelancers.UserId = u.id join reviews r on u.id = r.UserId join posts p on freelancers.id = p.FreelancerId where freelancers.id = ?" ,{replacements:[idFreelancer]});
+      const [results, metadata] = await sequelize.query("select * from freelancers join users u on freelancers.UserId = u.id left join reviews r on u.id = r.UserId left join posts p on freelancers.id = p.FreelancerId where freelancers.id = ?" ,{replacements:[idFreelancer]});
       return results;
     }
     static async getPosts(idFreelancer) {
