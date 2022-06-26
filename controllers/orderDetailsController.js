@@ -46,7 +46,7 @@ exports.findAllOrderedItemsByUser = async (req, res) => {
             required: true,
             include: {
                 model: db.Post,
-                attributes: ['PostTitle'],
+                attributes: ['PostTitle', 'thumbnailUrl'],
                 required: true,
                 include: {
                     model: db.Freelancer,
@@ -54,7 +54,7 @@ exports.findAllOrderedItemsByUser = async (req, res) => {
                     required: true,
                     include: {
                         model: db.User,
-                        attributes: ['username', 'firstName', 'lastName'],
+                        attributes: ['username', 'firstName', 'lastName', 'avatarUrl'],
                         required: true
                     }
                 }
