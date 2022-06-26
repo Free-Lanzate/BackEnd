@@ -13,8 +13,8 @@ exports.addReview = async (req, res) =>{
     const review = {
         reviewContent: req.body.reviewContent,
         reviewRating: req.body.reviewRating,
-        orderItemId: req.body.orderItemId,
-        userId: req.body.userId
+        OrderItemId: req.body.OrderItemId,
+        UserId: req.body.UserId
     };
     Review.create(review)
         .then(data => {
@@ -76,11 +76,11 @@ exports.delete = (req, res) => {
 
 exports.getReviewByUser = async (req, res) => {
     const reviewerId = req.params.userId;
-    const orderId = req.params.orderId;
+    const orderItemId = req.params.orderItemId;
 
     await Review.findAll({
         where: {
-            OrderItemId: orderId,
+            OrderItemId: orderItemId,
             UserId: reviewerId
         }/*,
         include: [{

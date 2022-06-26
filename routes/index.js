@@ -112,7 +112,7 @@ module.exports = (app) => {
     router.post("/review", ReviewController.addReview);
     router.post("/review/update/:id", ReviewController.update);
     router.post('/review/delete/:id', ReviewController.delete);
-    router.get('/review/:userId/:orderId', ReviewController.getReviewByUser);
+    router.get('/review/:userId/:orderItemId', ReviewController.getReviewByUser);
 
     //Sales routes
     router.get("/profile/:id/sales",MySalesController.findSalesByFreelancer)
