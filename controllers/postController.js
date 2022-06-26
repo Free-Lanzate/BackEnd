@@ -2,6 +2,21 @@ const db = require("../models");
 const Post = db.Post;
 const Op = db.Sequelize.Op;
 
+const path = require('path')
+const multer = require('multer')
+
+
+exports.diskStorage = multer.diskStorage({
+    destination: path.join(__dirname, '../images'),
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + '-' + file.originalname)
+    }
+})
+
+exports.fileUpload = multer({
+    storage: this.diskStorage,
+}).single('image')
+
 
 exports.findAll = (req, res) =>{
     Post.findAll()
@@ -16,7 +31,6 @@ exports.findAll = (req, res) =>{
         });
 };
 
-
 exports.create = (req, res) => {
     if (!req.body.postTitle) {
         res.status(400).send({
@@ -24,13 +38,15 @@ exports.create = (req, res) => {
         });
         return;
     }
+    imageUrl = path.join('/images/',req.file.filename)
+
     const post = {
         postTitle: req.body.postTitle,
         FreelancerId: req.body.freelancerId,
         postDescription: req.body.postDescription,
         postPrice: req.body.postPrice,
         PostCategoryId: req.body.postCategory,
-        thumbnailUrl: req.body.thumbnailUrl,
+        thumbnailUrl: imageUrl,
         adPriority: req.body.adPriority,
     };
     Post.create(post)
@@ -44,6 +60,39 @@ exports.create = (req, res) => {
             });
         });
 };
+
+/* Recibe la imagen como dataform */
+exports.uploadImage = (req, res) => {
+    console.log(req.file.filename)
+}
+
+/**
+ * Basicamente un update para anadir la imagen. Pero lo dejo por si hay que modificar
+ * Al igual que el update
+ * Toma la id del post como parametro y el nombre de la imagen en un body para quizas evitar problemas con caracteres y tales.
+ */
+exports.addImageToPost = async (req, res) => {
+    const postId = req.params.id;
+    Post.update(req.body, {
+        where: { id: postId }
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Post was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update Post with id=${postId}. Maybe Post was not found or req.body is empty!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating Post with id=" + postId
+            });
+        });
+}
 
 exports.update = (req, res) => {
     const id = req.params.id;

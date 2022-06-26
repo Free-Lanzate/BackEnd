@@ -10,6 +10,7 @@ const ShoppingController = require('../controllers/shoppingController');
 const RecommendationController = require("../controllers/recommendationController");
 const ReviewController = require("../controllers/reviewController");
 const MySalesController = require("../controllers/mySalesController");
+
 module.exports = (app) => {
     var router = require("express").Router();
 
@@ -25,7 +26,7 @@ module.exports = (app) => {
     router.get("/categories/:id", PostCategoryController.getPostsByCategory);
 
     // Post routes
-    router.post('/post/create', PostController.create);
+    router.post('/post/create', PostController.fileUpload, PostController.create);
     router.post('/post/:id/update', PostController.update);
     router.post('/post/:id/delete', PostController.delete);
     router.post('/post/:id', PostController.getPostInfo);
@@ -115,4 +116,11 @@ module.exports = (app) => {
     //Sales routes
     router.get("/profile/:id/sales",MySalesController.findSalesByFreelancer)
     app.use("/", router);
+
+    //Image routes
+    router.post('/image/upload', PostController.fileUpload, PostController.uploadImage)
+    // Recibe el id del post y el nombre de la imagen
+    // ejemplo imagen.jpg en el body {"thumbnailUrl": "imagen.jpg"}
+    // Deberia poder abrir http://localhost:8000/images/test.gif, que fue subida por controlador
+    router.post('/post/:id/addImage', PostController.addImageToPost)
 };

@@ -27,6 +27,8 @@ const http = require('http');
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+app.use('/images', express.static(__dirname + '/images'));
+
 app.use(express.urlencoded({ extended: true }))
 
 require("./routes")(app);
