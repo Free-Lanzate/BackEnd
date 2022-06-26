@@ -40,7 +40,7 @@ exports.create = (req, res) => {
         });
         return;
     }
-    imageUrl = path.join('/images/',req.file.filename)
+    //imageUrl = path.join('/images/',req.file.filename)
 
     const post = {
         postTitle: req.body.postTitle,
@@ -48,7 +48,7 @@ exports.create = (req, res) => {
         postDescription: req.body.postDescription,
         postPrice: req.body.postPrice,
         PostCategoryId: req.body.postCategory,
-        thumbnailUrl: imageUrl,
+        thumbnailUrl: req.body.thumbnailUrl,
         adPriority: req.body.adPriority,
     };
     Post.create(post)
@@ -87,10 +87,12 @@ exports.addImageToPost = async (req, res) => {
     })
         .then(num => {
             if (num == 1) {
+                console.log("funciona")
                 res.send({
                     message: "Post was updated successfully."
                 });
             } else {
+                console.log("no  funciona")
                 res.send({
                     message: `Cannot update Post with id=${postId}. Maybe Post was not found or req.body is empty!`
                 });
