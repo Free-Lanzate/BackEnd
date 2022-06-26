@@ -17,6 +17,18 @@ exports.fileUpload = multer({
     storage: this.diskStorage,
 }).single('image')
 
+exports.findAllPosts = (req, res) =>{
+    Post.findAllPosts()
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving users."
+            });
+        });
+};
 
 exports.findAll = (req, res) =>{
     Post.findAll({
@@ -40,7 +52,7 @@ exports.create = (req, res) => {
         });
         return;
     }
-    imageUrl = path.join('/images/',req.file.filename)
+    //imageUrl = path.join('/images/',req.file.filename)
 
     const post = {
         postTitle: req.body.postTitle,
@@ -48,7 +60,7 @@ exports.create = (req, res) => {
         postDescription: req.body.postDescription,
         postPrice: req.body.postPrice,
         PostCategoryId: req.body.postCategory,
-        thumbnailUrl: imageUrl,
+        thumbnailUrl: req.body.thumbnailUrl, //TODO: Dejarlo con imageUrl
         adPriority: req.body.adPriority,
     };
     Post.create(post)
@@ -166,7 +178,7 @@ exports.searchPost = (req, res) => {
             required: true,
             include: {
                 model: db.User,
-                attributes: ['username', 'firstName', 'lastName']
+                attributes: ['id','username', 'firstName', 'lastName']
             }
         },
         {

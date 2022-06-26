@@ -36,6 +36,48 @@ exports.findFreelancerById = (req, res) => {
         })
 }
 
+exports.findFreelancerByUserId = (req, res) => {
+    const idUser = req.params.id;
+    Freelancer.findFreelancerByUserId(idUser)
+        .then(data => {
+            if (data) {
+                res.send(data);
+            } else {
+                res.status(404).send({
+                    message: `Cannot find Freelancer with id=${idUser}.`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error finding Freelancer with id=" + idUser
+            })
+        })
+}
+
+exports.update = (req, res) => {
+    const id = req.params.id;
+    Freelancer.update(req.body, {
+        where: { UserId: id }
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Freelancer was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update Freelancer with id=${id}. Maybe Freelancer was not found or req.body is empty!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating Freelancer with id=" + id
+            });
+        });
+};
+
 exports.profileInfoFreelancerById = (req, res) => {
     const idFreelancer = req.params.id;
     Freelancer.profileInfoFreelancerById(idFreelancer)
