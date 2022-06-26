@@ -77,23 +77,42 @@ exports.addItemToSession = async (req, res) => {
 
     //Se crea el item de carrito y se anada a la sesion
 
-    CartItem.create(
+    //Se verifica que el item no este ya en el carrito, si lo esta se notifica, si no, se sigue el proceso.
+
+    const itemVerification = await CartItem.findOne(
         {
-            quantity: 1,
-            sessionId: sessionId,
-            postId: currentPostId
+            where: {
+                postId: currentPostId,
+                sessionId: userShoppingSession.id
+            }
         }
-    ).then(async data => {
-        userShoppingSession.total = await calculateCartTotal(userShoppingSession.id);
-        await userShoppingSession.save();
-        res.send(data);
-    })
-        .catch(err => {
-            res.status(400).send({
-                message:
-                    err.message || "Some error occurred while adding the item."
+    )
+
+    if(!itemVerification) {
+        CartItem.create(
+            {
+                quantity: 1,
+                sessionId: sessionId,
+                postId: currentPostId
+            }
+        ).then(async data => {
+            userShoppingSession.total = await calculateCartTotal(userShoppingSession.id);
+            await userShoppingSession.save();
+            res.send(data);
+        })
+            .catch(err => {
+                res.status(400).send({
+                    message:
+                        err.message || "Some error occurred while adding the item."
+                });
             });
+    } else {
+        res.status(400).send({
+            message:"El item ya se encuentra en el carrito y no ha sido anadido."
         });
+    }
+
+    
 }
 
 /**
