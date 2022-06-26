@@ -19,7 +19,9 @@ exports.fileUpload = multer({
 
 
 exports.findAll = (req, res) =>{
-    Post.findAll()
+    Post.findAll({
+        order: [['adPriority', 'DESC']]
+    })
         .then(data => {
             res.send(data);
         })
@@ -234,7 +236,8 @@ exports.getRelatedPosts = (req, res) => {
                 attributes: ['username', 'firstName', 'lastName']
             }
         }
-        ]
+        ],
+        order: [['adPriority', 'DESC']]
     })
         .then(data => {
             res.send(data);

@@ -42,7 +42,7 @@ exports.findAllOrderedItemsByUser = async (req, res) => {
             },
         include: [{
             model: db.OrderItem,
-            attributes: ['PostId', 'createdAt'],
+            attributes: ['id','PostId', 'createdAt'],
             required: true,
             include: {
                 model: db.Post,
