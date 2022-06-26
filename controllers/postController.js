@@ -63,7 +63,14 @@ exports.create = (req, res) => {
 
 /* Recibe la imagen como dataform */
 exports.uploadImage = (req, res) => {
-    console.log(req.file.filename)
+
+    if(!req.file){
+        res.status(500).send({
+            message: "Some error ocurred uploading the image"
+        })
+    } else {
+        res.send(req.file) //file.filename almacena el nombre del file en el servidor
+    }
 }
 
 /**
