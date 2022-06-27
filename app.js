@@ -5,11 +5,15 @@ const db = require('./models/index')
 const cors = require('cors')
 const control = require('./controllers/userController')
 var shell = require("shelljs");
-// Update database function
+
 async function updateDatabase() {
      await db.sequelize.sync({ force: true });
+     //Recalcula tanto los carritos como las reviews anadidas por seeders desde el principio
+
+
 }
 var argumentsArr = process.argv
+
 async function update() {
      await updateDatabase();
      shell.exec("npx sequelize-cli db:seed:all");

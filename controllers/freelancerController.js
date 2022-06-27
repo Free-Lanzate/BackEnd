@@ -143,7 +143,7 @@ exports.searchFreelancer = (req, res) => {
             include: [
                 {
                     model: db.User,
-                    attributes: ['username', 'firstName', 'lastName'],
+                    attributes: ['username', 'firstName', 'lastName', 'avatarUrl'],
                     as: 'User',
                     required: true
                 },

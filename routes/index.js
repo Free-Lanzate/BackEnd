@@ -129,8 +129,8 @@ module.exports = (app) => {
     // Deberia poder abrir http://localhost:8000/images/test.gif, que fue subida por controlador
     router.post('/post/:id/addImage', PostController.addImageToPost)
 
+    
     router.post('/image/profileUpload', UserController.fileUpload, UserController.uploadImage)
-
     // Recibe el id del user y el nombre de la imagen
     // ejemplo imagen.jpg en el body {"thumbnailUrl": "imagen.jpg"}
     // Deberia poder abrir http://localhost:8000/images/test.gif, que fue subida por controlador
