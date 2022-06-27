@@ -20,6 +20,7 @@ module.exports = (app) => {
     router.post("/users/create", UserController.create);
     router.get("/profile/:id", UserController.profileInfoById);
     router.post("/user/:id/update", UserController.update);
+    router.post('/user/:id/delete', UserController.delete);
 
     // PostCategory routes
     router.get("/categories", PostCategoryController.getCategories);
@@ -32,7 +33,7 @@ module.exports = (app) => {
     router.post('/post/:id', PostController.getPostInfo);
     router.get("/post/:id/related", PostController.getRelatedPosts);
     // Get all users
-    router.get('/post/getAll', PostController.findAll);
+    router.get('/post/getAll', PostController.findAllPosts);
 
     //Register routes
     router.post("/register", RegisterController.register);
@@ -57,8 +58,10 @@ module.exports = (app) => {
     //Freelancer routes
     router.get("/freelancer", FreelancerController.findAllFreelancers);
     router.get("/freelancer/:id", FreelancerController.findFreelancerById);
+    router.get("/freelancer/user/:id", FreelancerController.findFreelancerByUserId);
     router.get("/freelancer/profile/:id", FreelancerController.profileInfoFreelancerById);
     router.get("/freelancer/post/:id", FreelancerController.getPostsByFreelancer);
+    router.post("/freelancer/:id/update", FreelancerController.update);
 
     //router.get("/freelancer/profile/:username", FreelancerController.profileInfoFreelancerByUsername);
 

@@ -29,15 +29,15 @@ exports.findAll = (req, res) =>{
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving users."
+                    err.message || "Ocurrió un error al traer los usuarios."
             });
         });
 };
 
 exports.create = (req, res) => {
-    if (!req.body.username) {
+    if (!req.body.username || req.body.username === "") {
         res.status(400).send({
-            message: "Content can not be empty!"
+            message: "El nombre de usuario es obligatorio."
         });
         return;
     }
@@ -57,7 +57,7 @@ exports.create = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the User."
+                    err.message || "Hubo un fallo al crear el usuario."
             });
         });
 };
@@ -113,13 +113,13 @@ exports.findUserById = (req, res) => {
                 res.send(data);
             } else {
                 res.status(404).send({
-                    message: `Cannot find User with id=${id}.`
+                    message: `No se pudo encontrar al usuario con id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error finding User with id=" + id
+                message: "No se pudo encontrar al usuario con id=" + id
             })
         })
 }
@@ -132,13 +132,13 @@ exports.profileInfoById = (req, res) => {
             res.send(data);
         } else {
             res.status(404).send({
-                message: `Cannot find User with id=${id}.`
+                message: `No se pudo encontrar al usuario con id=${id}.`
             });
         }
     })
         .catch(err => {
             res.status(500).send({
-                message: "Error finding User with id=" + id
+                message: "No se pudo encontrar al usuario con id=" + id
             })
         });
 }
@@ -151,41 +151,41 @@ exports.update = (req, res) => {
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "User was updated successfully."
+                    message: "El usuario se actualizó correctamente."
                 });
             } else {
                 res.send({
-                    message: `Cannot update User with id=${id}. Maybe User was not found or req.body is empty!`
+                    message: `No se pudo actualizar la información del usuario con id=${id}. Quizá el usuario no existe o se dejaron todos los campos vacíos.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Post with id=" + id
+                message: "Hubo un fallo al actualizar el usuario con id=" + id
             });
         });
 };
 
 
-exports.delete = (req, res, model) => {
+exports.delete = (req, res) => {
     const id = req.params.id;
-    model.destroy({
+    User.destroy({
         where: { id: id }
     })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "User was deleted successfully!"
+                    message: "El usuario fue eliminado de forma correcta."
                 });
             } else {
                 res.send({
-                    message: `Cannot delete User with id=${id}. Maybe User was not found!`
+                    message: `No se puede eliminar al usuario con id=${id}. Verifique la información.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete User with id=" + id
+                message: "No se puede eliminar al usuario con id=" + id
             });
         });
 };

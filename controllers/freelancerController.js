@@ -36,6 +36,52 @@ exports.findFreelancerById = (req, res) => {
         })
 }
 
+exports.findFreelancerByUserId = (req, res) => {
+    const idUser = req.params.id;
+    Freelancer.findFreelancerByUserId(idUser)
+        .then(data => {
+            if (data) {
+                res.send(data);
+            } else {
+                res.status(404).send({
+                    message: `Cannot find Freelancer with id=${idUser}.`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error finding Freelancer with id=" + idUser
+            })
+        })
+}
+
+exports.update = (req, res) => {
+    const id = req.params.id;
+    Freelancer.update(req.body, {
+        where: { UserId: id }
+    })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Freelancer was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: "No fue posible actualizar la información." +
+                        " Verifique que haya diligenciado de manera correcta sus datos de ubicación, descripción, número de teléfono" +
+                        " y enlaces a redes sociales."
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "No fue posible actualizar la información." +
+                    " Verifique que haya diligenciado de manera correcta sus datos de ubicación, descripción, número de teléfono" +
+                    " y enlaces a redes sociales."
+            });
+        });
+};
+
 exports.profileInfoFreelancerById = (req, res) => {
     const idFreelancer = req.params.id;
     Freelancer.profileInfoFreelancerById(idFreelancer)
