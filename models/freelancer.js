@@ -3,7 +3,7 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Freelancer extends Model {
     static async findAllFreelancers() {
-      const [results, metadata] = await sequelize.query("select * from freelancers join (select id as uid, username, firstName, lastName from users) as u on freelancers.UserId = u.uid;");
+      const [results, metadata] = await sequelize.query("select * from freelancers join (select id as uid, username, firstName, lastName, avatarUrl from users) as u on freelancers.UserId = u.uid;");
       return results;
     }
     static async findFreelancerById(idFreelancer) {
