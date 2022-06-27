@@ -114,7 +114,6 @@ module.exports = (app) => {
     router.post('/review/delete/:id', ReviewController.delete);
     router.get('/review/:userId/:orderItemId', ReviewController.getReviewByUser);
     router.get('/freelancer/getReviews/:freelancerId', ReviewController.getRatingsByFreelancer) //Utilidad, trae solo los ratings dados a los productos de un freelancer
-    router.get('/freelancer/getByReview/:reviewId', ReviewController.getFreelancerByReview)
 
     //Sales routes
     router.get("/profile/:id/sales",MySalesController.findSalesByFreelancer)

@@ -4,17 +4,13 @@ const Freelancer = db.Freelancer;
 const Op = db.Sequelize.Op;
 
 //No funciona aun
-exports.getFreelancerByReview = async (req, res) => {
+async function getFreelancerByReview(reviewId) {
 
-    const reviewId = req.params.reviewId
     const freelancer = await Freelancer.findOne({
-            where: {
-                '$Posts.OrderItems.Reviews.id$': reviewId
-            },
             attributes: ['id'],
             include: {
                 model: db.Post,
-                attributes: ['id'],
+                attributes: [],
                 required: true,
                 as: 'Posts', 
                 include: {
@@ -25,25 +21,19 @@ exports.getFreelancerByReview = async (req, res) => {
                     include: {
                         model: db.Review,
                         required: true,
+                        where: {
+                            id: reviewId
+                        },
                         attributes: [],
                         as: 'Reviews',
                     }
                 } 
             },
         }, 
-    ).then(data => {
-        res.send(data);
-    })
-    .catch(err => {
-        res.status(500).send({
-            message:
-                err.message || "Some error occurred while creating the Review."
-        });
-    });
-    //res.send(review.freelancerId)
+    )
+    return freelancer.id
 }
 
-//Funciona pero no es util pues desde el front o desde el back hay que pasarle el id del freelancer
 async function setAverageRating(freelancerId){
     
     total = 0
@@ -85,11 +75,10 @@ async function setAverageRating(freelancerId){
         });
 }
 
-//Funciona y tiene ruta
 exports.getRatingsByFreelancer = async (req, res) => {
 
     const freelancerId = req.params.freelancerId
-    console.log("calculado con funcion" + await setAverageRating(freelancerId))
+    //console.log("calculado con funcion" + await setAverageRating(freelancerId))
     total = 0
     const ratingList =Review.findAll(
         {
@@ -139,7 +128,9 @@ exports.addReview = async (req, res) =>{
         UserId: req.body.UserId
     };
     Review.create(review)
-        .then(data => {
+        .then(async data => {
+            const freelancerId = await getFreelancerByReview(data.id)
+            await setAverageRating(freelancerId)
             res.send(data);
         })
         .catch(err => {
@@ -155,9 +146,12 @@ exports.update = (req, res) => {
     Review.update(req.body, {
         where: { id: id }
     })
-        .then(num => {
+        .then(async num => {
             if (num == 1) {
+                const freelancerId = await getFreelancerByReview(id)
+                await setAverageRating(freelancerId)
                 res.send({
+                    
                     message: "Review was updated successfully."
                 });
             } else {
@@ -178,8 +172,10 @@ exports.delete = (req, res) => {
     Review.destroy({
         where: { id: id }
     })
-        .then(num => {
+        .then(async num => {
             if (num == 1) {
+                const freelancerId = await getFreelancerByReview(id)
+                await setAverageRating(freelancerId)
                 res.send({
                     message: "Review was deleted successfully!"
                 });
