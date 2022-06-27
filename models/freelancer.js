@@ -7,7 +7,11 @@ module.exports = (sequelize, DataTypes) => {
       return results;
     }
     static async findFreelancerById(idFreelancer) {
-      const [results, metadata] = await sequelize.query("select * from freelancers join users u on freelancers.UserId = u.id where u.id = ?",{replacements:[idFreelancer]});
+      const [results, metadata] = await sequelize.query("select * from freelancers join (select id as uid, username, firstName, lastName from users) as u on freelancers.UserId = u.uid where id = ?",{replacements:[idFreelancer]});
+      return results;
+    }
+    static async findFreelancerByUserId(idUser) {
+      const [results, metadata] = await sequelize.query("select * from freelancers where userId = ?",{replacements:[idUser]});
       return results;
     }
     static async profileInfoFreelancerById(idFreelancer) {

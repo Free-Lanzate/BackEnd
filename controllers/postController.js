@@ -17,6 +17,18 @@ exports.fileUpload = multer({
     storage: this.diskStorage,
 }).single('image')
 
+exports.findAllPosts = (req, res) =>{
+    Post.findAllPosts()
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving users."
+            });
+        });
+};
 
 exports.findAll = (req, res) =>{
     Post.findAll({
@@ -175,7 +187,7 @@ exports.searchPost = (req, res) => {
             required: true,
             include: {
                 model: db.User,
-                attributes: ['username', 'firstName', 'lastName']
+                attributes: ['id','username', 'firstName', 'lastName']
             }
         },
         {
