@@ -67,13 +67,17 @@ exports.update = (req, res) => {
                 });
             } else {
                 res.send({
-                    message: `Cannot update Freelancer with id=${id}. Maybe Freelancer was not found or req.body is empty!`
+                    message: "No fue posible actualizar la información." +
+                        " Verifique que haya diligenciado de manera correcta sus datos de ubicación, descripción, número de teléfono" +
+                        " y enlaces a redes sociales."
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Freelancer with id=" + id
+                message: "No fue posible actualizar la información." +
+                    " Verifique que haya diligenciado de manera correcta sus datos de ubicación, descripción, número de teléfono" +
+                    " y enlaces a redes sociales."
             });
         });
 };

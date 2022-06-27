@@ -22,7 +22,7 @@ exports.register = async (req, res) => {
     let regExPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&#_.,¡¿]{6,14}$/;
     if (!regExPassword.test(user.password)){
         res.send({
-            message: "La contraseña debe contener al menos entre 6 y 14 caracteres, un número, una letra minúscula y una letra mayúscula"
+            message: "La contraseña debe contener al menos entre 6 y 14 caracteres, un número, una letra minúscula y una letra mayúscula."
         });
         return;
     }
@@ -39,7 +39,7 @@ exports.register = async (req, res) => {
             })
             .catch((error) =>
                 res.status(400).json({
-                    message: "User not successful created",
+                    message: "Ya hay un usuario registrado con este correo.",
                     error: error.message,
                 })
             );
@@ -72,7 +72,7 @@ exports.registerFreelancer = (req,res) => {
         .catch(err => {
             res.status(400).send({
                 message:
-                    err.message || "Some error occurred while creating the User."
+                    err.message || "Hubo un fallo en la creación del usuario."
             });
         });
 }

@@ -10,7 +10,7 @@ exports.login = async (req, res) => {
     if (email && password) {
         const search = await User.findOne({ where: { email: email} });
         if (search === null) {
-            res.status(400).send('INombre de usuario incorrecto');
+            res.status(400).send('Nombre de usuario incorrecto.');
             res.end();
         } else {
             bcrypt.compare(password, search.password, (err,match) => {
@@ -26,7 +26,7 @@ exports.login = async (req, res) => {
             })
         }
     } else {
-        res.status(400).send('Por favor ingrese todos los campos');
+        res.status(400).send('Por favor ingrese todos los campos.');
         res.end();
     }
 };

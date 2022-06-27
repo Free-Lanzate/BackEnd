@@ -20,6 +20,7 @@ module.exports = (app) => {
     router.post("/users/create", UserController.create);
     router.get("/profile/:id", UserController.profileInfoById);
     router.post("/user/:id/update", UserController.update);
+    router.post('/user/:id/delete', UserController.delete);
 
     // PostCategory routes
     router.get("/categories", PostCategoryController.getCategories);
